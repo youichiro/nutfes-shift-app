@@ -1,4 +1,4 @@
 .python-version
 .idea
 __pycache__
-.python-version
+config/local_settings.py
