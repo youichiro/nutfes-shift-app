@@ -8,11 +8,15 @@
     is_superuser: true
     password: "pbkdf2_sha256$120000$xsq6TLpI4Sup$mQDewhOYyy9nwdXth0fnyEFbTiFQQzsQ2Im+9sjwPa8="
 
+    # passwordの生成: https://stackoverflow.com/questions/8017204/users-in-initial-data-fixture
+    # ユーザを作成し，`python manage.py dumpdata auth.User > users.yaml`
+    # users.yamlからpasswordをコピーして使用する
+
 - model: account.User
   pk: 2
   fields:
-    student_id: "16312786"
-    name: "小川耀一朗"
+    student_id: "00000001"
+    name: "test_user1"
     password: "pbkdf2_sha256$120000$xsq6TLpI4Sup$mQDewhOYyy9nwdXth0fnyEFbTiFQQzsQ2Im+9sjwPa8="
 
 # Sheet
