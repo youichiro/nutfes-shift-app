@@ -1,0 +1,75 @@
+# User
+- model: account.User
+  pk: 1
+  fields:
+    student_id: "00000000"
+    name: "admin"
+    is_staff: true
+    is_superuser: true
+    password: "pbkdf2_sha256$120000$xsq6TLpI4Sup$mQDewhOYyy9nwdXth0fnyEFbTiFQQzsQ2Im+9sjwPa8="
+
+- model: account.User
+  pk: 2
+  fields:
+    student_id: "16312786"
+    name: "小川耀一朗"
+    password: "pbkdf2_sha256$120000$xsq6TLpI4Sup$mQDewhOYyy9nwdXth0fnyEFbTiFQQzsQ2Im+9sjwPa8="
+
+# Sheet
+- model: shift.Sheet
+  pk: 1
+  fields:
+    name: "test sheet"
+    date: "2019-01-01"
+
+# Place
+- model: shift.Place
+  pk: 1
+  fields:
+    name: "24"
+
+- model: shift.Place
+  pk: 2
+  fields:
+    name: "セコム"
+
+# Time
+- model: shift.Time
+  pk: 1
+  fields:
+    time: "08:00:00"
+
+- model: shift.Time
+  pk: 2
+  fields:
+    time: "08:30:00"
+
+# Task
+- model: shift.Task
+  pk: 1
+  fields:
+    name: "24のお掃除"
+    description: "来た時よりも綺麗に"
+    place_id: 1
+
+- model: shift.Task
+  pk: 2
+  fields:
+    name: "MTG"
+    description: "楽しいミーティングのお時間"
+    place_id: 2
+
+# Cell
+- model: shift.Cell
+  pk: 1
+  fields:
+    user_id: 1
+    time_id: 1
+    task_id: 1
+
+- model: shift.Cell
+  pk: 2
+  fields:
+    user_id: 1
+    time_id: 2
+    task_id: 1

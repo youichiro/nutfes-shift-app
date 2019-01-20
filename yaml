@@ -1,0 +1,1 @@
+[{"model": "account.user", "pk": 3, "fields": {"password": "pbkdf2_sha256$120000$xsq6TLpI4Sup$mQDewhOYyy9nwdXth0fnyEFbTiFQQzsQ2Im+9sjwPa8=", "last_login": null, "student_id": "00000000", "name": "admin", "belong": "", "department": "", "grade": "", "phone_number": null, "is_staff": true, "is_active": true, "is_superuser": true, "groups": [], "user_permissions": []}}]
