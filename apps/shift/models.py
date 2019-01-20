@@ -54,14 +54,15 @@ class Task(models.Model):
 
 class Cell(models.Model):
     id = models.AutoField(primary_key=True)
+    sheet = models.ForeignKey(Sheet, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     time = models.ForeignKey(Time, on_delete=models.PROTECT)
     task = models.ForeignKey(Task, on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'cells'
-        unique_together = (("user", "time"),)
+        unique_together = (("sheet", "user", "time"),)
 
     def __str__(self):
-        return "{}_{}時{}分_{}".format(self.user.name, self.time.time.hour,
-                                     self.time.time.minute, self.task.name)
+        return "{}_{}_{}時{}分_{}".format(self.sheet.name, self.user.name, self.time.time.hour,
+                                        self.time.time.minute, self.task.name)
