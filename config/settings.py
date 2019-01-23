@@ -17,8 +17,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # About the django-rest-framework: https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
+    'rest_framework',
+    'django_filters',
     'apps.account',
     'apps.shift',
+    'apps.api',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +92,10 @@ STATICFILES_DIRS = [
 
 # CustomUserモデルをAdminに設定
 AUTH_USER_MODEL = 'account.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
 
 try:
     from .local_settings import *
