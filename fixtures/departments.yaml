@@ -1,0 +1,44 @@
+- model: account.Department
+  pk: 1
+  fields:
+    name: "未所属"
+
+- model: account.Department
+  pk: 2
+  fields:
+    name: "機械"
+
+- model: account.Department
+  pk: 3
+  fields:
+    name: "電気"
+
+- model: account.Department
+  pk: 4
+  fields:
+    name: "物材"
+
+- model: account.Department
+  pk: 5
+  fields:
+    name: "環社"
+
+- model: account.Department
+  pk: 6
+  fields:
+    name: "生物"
+
+- model: account.Department
+  pk: 7
+  fields:
+    name: "情報"
+
+- model: account.Department
+  pk: 8
+  fields:
+    name: "原子力"
+
+- model: account.Department
+  pk: 9
+  fields:
+    name: "システム安全"

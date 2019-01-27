@@ -4,6 +4,9 @@
   fields:
     student_id: "00000000"
     name: "admin"
+    belong_id: 1
+    department_id: 1
+    grade_id: 1
     is_staff: true
     is_superuser: true
     password: "pbkdf2_sha256$120000$xsq6TLpI4Sup$mQDewhOYyy9nwdXth0fnyEFbTiFQQzsQ2Im+9sjwPa8="
@@ -17,6 +20,11 @@
   fields:
     student_id: "00000001"
     name: "test_user1"
+    belong_id: 1
+    department_id: 1
+    grade_id: 1
+    is_staff: false
+    is_superuser: false
     password: "pbkdf2_sha256$120000$xsq6TLpI4Sup$mQDewhOYyy9nwdXth0fnyEFbTiFQQzsQ2Im+9sjwPa8="
 
 # Sheet

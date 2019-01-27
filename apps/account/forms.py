@@ -3,38 +3,6 @@ from django.contrib.auth import password_validation
 from .models import User
 
 
-BELONG_CHOICES = (
-    ('総務局', '総務局'),
-    ('企画局', '企画局'),
-    ('制作局', '制作局'),
-    ('渉外局', '渉外局'),
-    ('財務局', '財務局'),
-)
-
-DEPARTMENT_CHOICES = (
-    ('機械', '機械'),
-    ('電気', '電気'),
-    ('物材', '物材'),
-    ('環社', '環社'),
-    ('生物', '生物'),
-    ('情経', '情経'),
-    ('原子力', '原子力'),
-    ('システム安全', 'システム安全'),
-)
-
-GRADE_CHOICES = (
-    ('B1', 'B1'),
-    ('B2', 'B2'),
-    ('B3', 'B3'),
-    ('B4', 'B4'),
-    ('M1', 'M1'),
-    ('M2', 'M2'),
-    ('D1', 'D1'),
-    ('D2', 'D2'),
-    ('D3', 'D3'),
-)
-
-
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(
         label='パスワード',
@@ -48,22 +16,6 @@ class UserCreationForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         help_text='上のパスワードをもう一度入力してください.',
     )
-    belong = forms.ChoiceField(
-        label='所属',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        choices=BELONG_CHOICES,
-        help_text='兼局している場合はメインの部門を選択してください.'
-    )
-    department = forms.ChoiceField(
-        label='学科',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        choices=DEPARTMENT_CHOICES,
-    )
-    grade = forms.ChoiceField(
-        label='学年',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        choices=GRADE_CHOICES,
-    )
 
     class Meta:
         model = User
@@ -71,11 +23,17 @@ class UserCreationForm(forms.ModelForm):
         labels = {
             'student_id': '学籍番号',
             'name': '名前',
+            'belong': '局・部門',
+            'department': '学科',
+            'grade': '学年',
             'phone_number': '電話番号',
         }
         widgets = {
             'student_id': forms.TextInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'belong': forms.Select(attrs={'class': 'form-control'}),
+            'department': forms.Select(attrs={'class': 'form-control'}),
+            'grade': forms.Select(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
