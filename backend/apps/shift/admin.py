@@ -14,7 +14,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
 
 class TimeAdmin(admin.ModelAdmin):
-    list_display = ('time', 'is_now')
+    list_display = ('start_time', 'end_time', 'is_now')
     ordering = ('id',)
 
 

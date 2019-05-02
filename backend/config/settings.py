@@ -97,7 +97,14 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
+# local設定の読み込み
 try:
     from .local_settings import *
+except ImportError:
+    pass
+
+# 各種定数の読み込み
+try:
+    from .constants import *
 except ImportError:
     pass
