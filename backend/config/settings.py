@@ -7,8 +7,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.join(BASE_DIR, "apps"))
 
 SECRET_KEY = 't!r7fj7j6+3r)-nk^ddefi(q72ou-o=(4gfqb%6wp=l=yxuva6'
-DEBUG = False
-ALLOWED_HOSTS = []
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # About the django-rest-framework: https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
     'rest_framework',
     'django_filters',
     'apps.account',
@@ -57,8 +56,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'shiftapp_db',
+        'USER': 'gidaifes',
+        'PASSWORD': 'gidaifes',
+        'HOST': 'db',
+        'PORT': 3306,
     }
 }
 
@@ -82,12 +85,6 @@ TIME_ZONE = 'Asia/Tokyo'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 
 # CustomUserモデルをAdminに設定
