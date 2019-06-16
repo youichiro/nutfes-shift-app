@@ -25,10 +25,10 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 class CellAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'sheet', 'user', 'time', 'task')
+    list_display = ('__str__', 'sheet', 'member', 'time', 'task')
     ordering = ('id',)
     list_filter = ('sheet', 'time', 'task')
-    search_fields = ('user__name',)
+    search_fields = ('member__name',)
 
 
 admin.site.register(Sheet, SheetAdmin)

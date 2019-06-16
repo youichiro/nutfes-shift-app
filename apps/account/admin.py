@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm
 from .forms import UserCreationForm
-from .models import User, Belong, Department, Grade
+from .models import User, Belong, Department, Grade, Member
 
 
 class BelongAdmin(admin.ModelAdmin):
@@ -21,6 +21,11 @@ class GradeAdmin(admin.ModelAdmin):
     ordering = ('order',)
 
 
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'student_id', 'belong', 'department', 'grade', 'is_leader', 'is_subleader')
+    ordering = ('belong__order',)
+
+
 class MyUserChangeForm(UserChangeForm):
     class Meta:
         model = User
@@ -30,34 +35,30 @@ class MyUserChangeForm(UserChangeForm):
 class MyUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('student_id', )
+        fields = ('email', )
 
 
 class MyUserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('student_id', 'password')}),
-        ('Personal info', {'fields': ('name', 'belong', 'department', 'grade',
-                                      'is_leader', 'is_subleader', 'phone_number')}),
+        (None, {'fields': ('email', 'password')}),
+        ('Personal info', {'fields': ('name',)}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', )}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide', ),
-            'fields': ('student_id', 'name', 'belong', 'department', 'grade',
-                       'is_leader', 'is_subleader', 'phone_number', 'password1', 'password2'),
+            'fields': ('name', 'email', 'password1', 'password2'),
         }),
     )
     form = MyUserChangeForm
     add_form = MyUserCreationForm
-    list_display = ('name', 'belong', 'department', 'grade',
-                    'is_leader', 'is_subleader', 'student_id', 'phone_number', 'is_staff')
-    list_filter = ('belong', 'grade')
-    search_fields = ('name', 'belong__name')
-    ordering = ('belong', )
+    list_display = ('name', 'email', 'is_staff')
+    ordering = ('name',)
 
 
 admin.site.register(Belong, BelongAdmin)
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Grade, GradeAdmin)
+admin.site.register(Member, MemberAdmin)
 admin.site.register(User, MyUserAdmin)

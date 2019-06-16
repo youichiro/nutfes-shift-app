@@ -1,0 +1,20 @@
+# Member
+- model: account.Member
+  pk: 1
+  fields:
+    name: "test_user_1"
+    email: "nutfes.info@gmail.com"
+    student_id: "00000000"
+    belong_id: 1
+    department_id: 1
+    grade_id: 1
+
+- model: account.Member
+  pk: 2
+  fields:
+    name: "test_user_2"
+    email: "nutfes.info2@gmail.com"
+    student_id: "00000001"
+    belong_id: 1
+    department_id: 1
+    grade_id: 1
