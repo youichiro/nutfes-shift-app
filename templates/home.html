@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>技大祭シフトアプリ</h1>
+    <hr>
+    <br>
+    {% if user.is_authenticated %}
+        <p>ログインしています．</p>
+        <p>ユーザ: {{ user.name }}</p>
+        <p>▶︎ {% if user.is_staff %}<a href="{% url 'admin:index' %}">管理画面</a>{% endif %}</p>
+        <p>▶︎ <a href="{% url 'account:logout' %}">ログアウト</a></p>
+    {% else %}
+        <p>ログインしていません．</p>
+        <p>▶︎ <a href="{% url 'admin:index' %}">ログイン</a></p>
+        <p>▶︎ <a href="{% url 'account:registration' %}">ユーザ登録</a></p>
+    {% endif %}
+{% endblock %}

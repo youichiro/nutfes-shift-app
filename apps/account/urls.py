@@ -6,7 +6,6 @@ from django.urls import path
 app_name = 'account'
 urlpatterns = [
     path('registration/', views.UserCreateView.as_view(), name='registration'),
-    path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),

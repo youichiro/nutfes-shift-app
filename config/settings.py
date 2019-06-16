@@ -57,9 +57,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shiftapp_db',
-        'USER': 'gidaifes',
-        'PASSWORD': 'gidaifes',
+        'NAME': 'nutfes_shift_app',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'db',
         'PORT': 3306,
     }
@@ -100,6 +100,9 @@ AUTH_USER_MODEL = 'account.User'
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+
+LOGIN_URL = 'account:login'
+LOGIN_REDIRECT_URL = 'home'
 
 # local設定の読み込み
 try:
