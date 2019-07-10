@@ -1,9 +1,7 @@
-import  django_filters
-from rest_framework import viewsets, filters
-from apps.account.models import User, Belong, Department, Grade
-from apps.shift.models import Sheet, Place, Time, Task, Cell
-from .serializer import (UserSerializer, BelongSerializer, DepartmentSerializer, GradeSerializer, SheetSerializer,
-                         PlaceSerializer, TimeSerializer, TaskSerializer, CellSerializer)
+from rest_framework import viewsets
+from apps.shift.models import Belong, Department, Grade, Member, Sheet, Time, Task, Cell
+from .serializer import (BelongSerializer, DepartmentSerializer, GradeSerializer, MemberSerializer,
+                         SheetSerializer, TimeSerializer, TaskSerializer, CellSerializer)
 
 
 class BelongViewSet(viewsets.ModelViewSet):
@@ -21,20 +19,14 @@ class GradeViewSet(viewsets.ModelViewSet):
     serializer_class = GradeSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    filter_fields = ('name', 'belong', 'department', 'grade')
+class MemberViewSet(viewsets.ModelViewSet):
+    queryset = Member.objects.all()
+    serializer_class = MemberSerializer
 
 
 class SheetViewSet(viewsets.ModelViewSet):
     queryset = Sheet.objects.all()
     serializer_class = SheetSerializer
-
-
-class PlaceViewSet(viewsets.ModelViewSet):
-    queryset = Place.objects.all()
-    serializer_class = PlaceSerializer
 
 
 class TimeViewSet(viewsets.ModelViewSet):
@@ -51,4 +43,4 @@ class TaskViewSet(viewsets.ModelViewSet):
 class CellViewSet(viewsets.ModelViewSet):
     queryset = Cell.objects.all()
     serializer_class = CellSerializer
-    filter_fields = ('sheet', 'user', 'time', 'task')
+    filter_fields = ('sheet', 'member', 'time', 'task')

@@ -1,5 +1,75 @@
 from django.db import models
-from apps.account.models import Member
+
+
+class Belong(models.Model):
+    """部署モデル"""
+    id = models.AutoField(primary_key=True)
+    category_name = models.CharField('局', max_length=30)
+    subcategory_name = models.CharField('部門', null=True, blank=True, max_length=30)
+    short_name = models.CharField('略称', max_length=30)
+    color = models.CharField('局・部門カラー', max_length=30, default='black')
+    order = models.IntegerField('優先順位', unique=True)
+
+    class Meta:
+        db_table = 'belongs'
+        verbose_name_plural = '局・部門'
+        verbose_name = '局・部門'
+
+    def __str__(self):
+        return self.short_name
+
+    def name(self):
+        return '{}-{}'.format(self.category_name, self.subcategory_name)
+
+
+class Department(models.Model):
+    """学科モデル"""
+    id = models.AutoField(primary_key=True)
+    name = models.CharField('学科', max_length=30)
+
+    class Meta:
+        db_table = 'departments'
+        verbose_name_plural = '学科'
+        verbose_name = '学科'
+
+    def __str__(self):
+        return self.name
+
+
+class Grade(models.Model):
+    """学年モデル"""
+    id = models.AutoField(primary_key=True)
+    name = models.CharField('学年', max_length=30)
+    order = models.IntegerField('優先順位', unique=True)
+
+    class Meta:
+        db_table = 'grades'
+        verbose_name_plural = '学年'
+        verbose_name = '学年'
+
+    def __str__(self):
+        return self.name
+
+
+class Member(models.Model):
+    """局員モデル"""
+    id = models.AutoField(primary_key=True)
+    name = models.CharField('名前', max_length=100)
+    email = models.EmailField('メールアドレス', unique=True)
+    student_id = models.CharField('学籍番号', max_length=8, unique=True)
+    belong = models.ForeignKey(Belong, on_delete=models.PROTECT)
+    department = models.ForeignKey(Department, on_delete=models.PROTECT)
+    grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
+    is_leader = models.BooleanField('局長/部門長', default=False)
+    is_subleader = models.BooleanField('副局長/副部門長', default=False)
+
+    class Meta:
+        db_table = 'members'
+        verbose_name_plural = '局員'
+        verbose_name = '局員'
+
+    def __str__(self):
+        return self.name
 
 
 class Sheet(models.Model):
@@ -18,26 +88,12 @@ class Sheet(models.Model):
         return self.name
 
 
-class Place(models.Model):
-    """実施場所モデル"""
-    id = models.AutoField(primary_key=True)
-    name = models.CharField('場所', max_length=30, unique=True)
-    color = models.CharField('場所カラー', max_length=30, default='black')
-
-    class Meta:
-        db_table = 'places'
-        verbose_name_plural = '実施場所'
-        verbose_name = '実施場所'
-
-    def __str__(self):
-        return self.name
-
-
 class Time(models.Model):
     """時間帯モデル"""
     id = models.AutoField(primary_key=True)
     start_time = models.TimeField('開始時刻', unique=True)
     end_time = models.TimeField('終了時刻', unique=True)
+    row_number = models.IntegerField('行番号', unique=True)
     is_now = models.BooleanField('現在時刻かどうか', default=False)
 
     class Meta:
@@ -48,13 +104,21 @@ class Time(models.Model):
     def __str__(self):
         return "{}-{}".format(self.start_time, self.end_time)
 
+    @staticmethod
+    def first_row_number():
+        return min(Time.objects.values_list('row_number', flat=True))
+
+    @staticmethod
+    def last_row_number():
+        return max(Time.objects.values_list('row_number', flat=True))
+
 
 class Task(models.Model):
     """タスクモデル"""
     id = models.AutoField(primary_key=True)
-    name = models.CharField('タスク名', max_length=30, unique=True)
+    name = models.CharField('タスク名', max_length=100, unique=True)
     description = models.TextField('タスクの説明', null=True, blank=True)
-    place = models.ForeignKey(Place, null=True, blank=True, on_delete=models.PROTECT)
+    place = models.CharField('タスクの場所', max_length=100, null=True, blank=True)
     color = models.CharField('タスクの色', max_length=30, default='black')
 
     class Meta:

@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from apps.account.models import User, Belong, Department, Grade
-from apps.shift.models import Sheet, Place, Time, Task, Cell
+from apps.shift.models import Belong, Department, Grade, Member, Sheet, Time, Task, Cell
 
 
 class BelongSerializer(serializers.ModelSerializer):
@@ -21,26 +20,15 @@ class GradeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserSerializer(serializers.ModelSerializer):
-    belong = BelongSerializer()
-    department = DepartmentSerializer()
-    grade = GradeSerializer()
-
+class MemberSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'student_id', 'name', 'belong', 'department', 'grade', 'is_leader',
-                  'is_subleader', 'phone_number', 'is_staff', 'is_active', 'is_superuser')
+        model = Member
+        fields = '__all__'
 
 
 class SheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sheet
-        fields = '__all__'
-
-
-class PlaceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Place
         fields = '__all__'
 
 
@@ -51,8 +39,6 @@ class TimeSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    place = PlaceSerializer()
-
     class Meta:
         model = Task
         fields = '__all__'
@@ -60,7 +46,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class CellSerializer(serializers.ModelSerializer):
     sheet = SheetSerializer()
-    user = UserSerializer()
+    member = MemberSerializer()
     time = TimeSerializer()
     task = TaskSerializer()
 
