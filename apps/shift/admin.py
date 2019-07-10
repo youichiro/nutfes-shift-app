@@ -3,7 +3,7 @@ from .models import Belong, Department, Grade, Member, Sheet, Time, Task, Cell
 
 
 class BelongAdmin(admin.ModelAdmin):
-    list_display = ('name', 'short_name', 'color', 'order')
+    list_display = ('__str__', 'short_name', 'color', 'order')
     ordering = ('order',)
     list_editable = ('color',)  # 一覧ページで編集できる
 
@@ -29,7 +29,7 @@ class SheetAdmin(admin.ModelAdmin):
 
 
 class TimeAdmin(admin.ModelAdmin):
-    list_display = ('start_time', 'end_time', 'is_now')
+    list_display = ('__str__', 'start_time', 'end_time', 'is_now')
     ordering = ('id',)
 
 
@@ -42,8 +42,8 @@ class TaskAdmin(admin.ModelAdmin):
 class CellAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'sheet', 'member', 'time', 'task')
     ordering = ('id',)
-    list_filter = ('sheet', 'time', 'task')
-    search_fields = ('member__name',)
+    list_filter = ('sheet', 'member__belong', 'time')
+    search_fields = ('member__name', 'task')
 
 
 admin.site.register(Belong, BelongAdmin)

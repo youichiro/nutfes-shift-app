@@ -8,7 +8,7 @@ class Belong(models.Model):
     subcategory_name = models.CharField('部門', null=True, blank=True, max_length=30)
     short_name = models.CharField('略称', max_length=30)
     color = models.CharField('局・部門カラー', max_length=30, default='black')
-    order = models.IntegerField('優先順位', unique=True)
+    order = models.IntegerField('優先順位')
 
     class Meta:
         db_table = 'belongs'
@@ -16,9 +16,6 @@ class Belong(models.Model):
         verbose_name = '局・部門'
 
     def __str__(self):
-        return self.short_name
-
-    def name(self):
         return '{}-{}'.format(self.category_name, self.subcategory_name)
 
 
@@ -40,7 +37,7 @@ class Grade(models.Model):
     """学年モデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('学年', max_length=30)
-    order = models.IntegerField('優先順位', unique=True)
+    order = models.IntegerField('優先順位')
 
     class Meta:
         db_table = 'grades'
@@ -102,7 +99,12 @@ class Time(models.Model):
         verbose_name = '時間帯'
 
     def __str__(self):
-        return "{}-{}".format(self.start_time, self.end_time)
+        return "{}:{}-{}:{}".format(
+            str(self.start_time.hour).rjust(2, '0'),
+            str(self.start_time.minute).rjust(2, '0'),
+            str(self.end_time.hour).rjust(2, '0'),
+            str(self.end_time.minute).rjust(2, '0'),
+        )
 
     @staticmethod
     def first_row_number():
@@ -146,4 +148,9 @@ class Cell(models.Model):
 
     def __str__(self):
         return "{}_{}_{}時{}分_{}".format(
-            self.sheet.name, self.member.name, self.time.start_time.hour, self.time.start_time.minute, self.task.name)
+            self.sheet.name,
+            self.member.name,
+            str(self.time.start_time.hour).rjust(2, '0'),
+            str(self.time.start_time.minute).rjust(2, '0'),
+            self.task.name
+        )
