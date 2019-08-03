@@ -1,5 +1,7 @@
 .python-version
 .idea
+.DS_Store
+.vscode
 __pycache__
 config/local_settings.py
 static/xlsx/*

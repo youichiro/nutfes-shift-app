@@ -4,7 +4,7 @@ from django.conf import settings
 from apps.shift.models import Task, Cell, Member, Time
 
 
-MEMBER_RANGE = 'B3:DS3'
+MEMBER_RANGE = 'B3:DE3'
 
 
 def get_value_list(tuple_2d):
@@ -105,9 +105,24 @@ def register(sheet, sheet_id):
 def main():
     # エクセルファイルの読み取り
     sat_file = settings.BASE_DIR + '/static/xlsx/sat_shift.xlsx'
+    sun_file = settings.BASE_DIR + '/static/xlsx/sun_shift.xlsx'
+
     # Workbooks
     sat_wb = openpyxl.load_workbook(sat_file)
+    sun_wb = openpyxl.load_workbook(sun_file)
+
     # Worksheets
-    sat_sun_sheet = sat_wb['晴']  # シート名は固定
+    sat_sun_sheet = sat_wb['晴']
+    sat_rain_sheet = sat_wb['雨']
+    sun_sun_sheet = sun_wb['晴']
+    sun_rain_sheet = sun_wb['雨']
+
     # Registration
+    print('saving sat_sun_sheet...')
     register(sat_sun_sheet, sheet_id=2)
+    print('saving sat_rain_sheet...')
+    register(sat_rain_sheet, sheet_id=3)
+    print('saving sun_sun_sheet...')
+    register(sun_sun_sheet, sheet_id=4)
+    print('saving sun_rain_sheet...')
+    register(sun_rain_sheet, sheet_id=5)

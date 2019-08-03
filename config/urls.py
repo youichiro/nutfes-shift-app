@@ -8,5 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('apps.account.urls')),
     path('api/', include(router.urls)),
+    path('shift/', include('apps.shift.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]
