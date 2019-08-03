@@ -18,7 +18,7 @@ class Command(BaseCommand):
             init_time()
             self.stdout.write('Initialized tables')
         except IntegrityError:
-            self.stderr.write('Init data already exists. Run `python manage.py flush` to clean database.')
+            self.stdout.write('Init data already exists. Run `python manage.py flush` to clean database.')
 
 
 def init_department():

@@ -5,3 +5,4 @@
 __pycache__
 config/local_settings.py
 static/xlsx/*
+!.gitkeep
