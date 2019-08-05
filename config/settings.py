@@ -62,6 +62,10 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'db',
         'PORT': 3306,
+        'OPTIONS': {
+            'charset': 'utf8',
+            'sql_mode': 'TRADITIONAL,NO_AUTO_VALUE_ON_ZERO,ONLY_FULL_GROUP_BY',
+        }
     }
 }
 
