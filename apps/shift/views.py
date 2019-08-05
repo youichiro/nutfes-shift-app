@@ -3,7 +3,7 @@ from .models import Time, Sheet, Member, Cell
 from django.http import JsonResponse
 
 
-def get_shift_data_json(request, sheet_id):
+def create_shift_data_json(request, sheet_id):
     sheet_name = Sheet.objects.get(id=sheet_id).name
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
     data = []
