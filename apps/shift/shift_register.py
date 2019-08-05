@@ -103,21 +103,25 @@ def register(sheet, sheet_id):
 
 
 def main():
-    sat_file = 'static/xlsx/sat_shift.xlsx'
-    sat_wb = openpyxl.load_workbook(sat_file)
-    sat_sun_sheet = sat_wb['晴']
-    sat_rain_sheet = sat_wb['雨']
+    filename = 'static/xlsx/sat_shift.xlsx'
+    wb = openpyxl.load_workbook(filename)
+    sat_sun_sheet = wb['晴']
     print('saving sat_sun_sheet...')
     register(sat_sun_sheet, sheet_id=2)
+    sat_rain_sheet = wb['雨']
     print('saving sat_rain_sheet...')
     register(sat_rain_sheet, sheet_id=3)
+    del sat_sun_sheet
+    del sat_rain_sheet
 
 
-    sun_file = 'static/xlsx/sun_shift.xlsx'
-    sun_wb = openpyxl.load_workbook(sun_file)
-    sun_sun_sheet = sun_wb['晴']
-    sun_rain_sheet = sun_wb['雨']
+    filename = 'static/xlsx/sun_shift.xlsx'
+    wb = openpyxl.load_workbook(filename)
+    sun_sun_sheet = wb['晴']
     print('saving sun_sun_sheet...')
     register(sun_sun_sheet, sheet_id=4)
+    sun_rain_sheet = wb['雨']
     print('saving sun_rain_sheet...')
     register(sun_rain_sheet, sheet_id=5)
+    del sun_sun_sheet
+    del sun_rain_sheet
