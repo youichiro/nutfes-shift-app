@@ -121,7 +121,7 @@ class Task(models.Model):
     name = models.CharField('タスク名', max_length=100, unique=True)
     description = models.TextField('タスクの説明', null=True, blank=True)
     place = models.CharField('タスクの場所', max_length=100, null=True, blank=True)
-    color = models.CharField('タスクの色', max_length=30, default='black')
+    color = models.CharField('タスクの色', max_length=30, default='white')
     manual_url = models.CharField('マニュアルURL', max_length=30, default='')
 
     class Meta:
