@@ -4,8 +4,11 @@ from django.http import JsonResponse
 
 
 def create_shift_data_json(request, sheet_id):
+    # TODO: 開始時間, 終了時間を追加
+    # TODO: 同じ時間帯のメンバーを追加
     sheet_name = Sheet.objects.get(id=sheet_id).name
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
+
     data = []
     for member in Member.objects.all():
         name = member.name
@@ -15,6 +18,7 @@ def create_shift_data_json(request, sheet_id):
             continue
         times = Time.objects.all()
         if cells[0].time.start_time != Time.objects.first():
+            # 最初の空白セルを追加する
             i = 1
             n_cell = 1
             while times[i].start_time == cells[0].time.start_time:
@@ -23,7 +27,10 @@ def create_shift_data_json(request, sheet_id):
             tasks.append({
                 'name': '',
                 'description': '',
-                'n_cell': n_cell
+                'n_cell': n_cell,
+                'place': '',
+                'color': '',
+                'manual_url': '',
             })
 
         n_cell = 1
@@ -35,7 +42,10 @@ def create_shift_data_json(request, sheet_id):
                 tasks.append({
                     'name': cell.task.name,
                     'description': cell.task.description,
-                    'n_cell': n_cell
+                    'n_cell': n_cell,
+                    'place': cell.task.place,
+                    'color': cell.task.color,
+                    'manual_url': cell.task.manual_url,
                 })
                 n_cell = 1
 
@@ -44,7 +54,8 @@ def create_shift_data_json(request, sheet_id):
             'belong': {
                 'category_name': member.belong.category_name,
                 'subcategory_name': member.belong.subcategory_name,
-                'short_name': member.belong.short_name
+                'short_name': member.belong.short_name,
+                'color': member.belong.color,
             },
             'tasks': tasks
         })

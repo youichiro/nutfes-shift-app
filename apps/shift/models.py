@@ -122,6 +122,7 @@ class Task(models.Model):
     description = models.TextField('タスクの説明', null=True, blank=True)
     place = models.CharField('タスクの場所', max_length=100, null=True, blank=True)
     color = models.CharField('タスクの色', max_length=30, default='black')
+    manual_url = models.CharField('マニュアルURL', max_length=30, default='')
 
     class Meta:
         db_table = 'tasks'
