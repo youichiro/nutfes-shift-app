@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from apps.shift.models import Belong, Department, Grade, Member, Sheet, Time, Task, Cell
+from apps.manual.models import Manual
 
 
 class BelongSerializer(serializers.ModelSerializer):
@@ -52,4 +53,10 @@ class CellSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cell
+        fields = '__all__'
+
+
+class ManualSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Manual
         fields = '__all__'

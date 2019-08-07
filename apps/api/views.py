@@ -1,7 +1,17 @@
 from rest_framework import viewsets
 from apps.shift.models import Belong, Department, Grade, Member, Sheet, Time, Task, Cell
-from .serializer import (BelongSerializer, DepartmentSerializer, GradeSerializer, MemberSerializer,
-                         SheetSerializer, TimeSerializer, TaskSerializer, CellSerializer)
+from apps.manual.models import Manual
+from .serializer import (
+    BelongSerializer,
+    DepartmentSerializer,
+    GradeSerializer,
+    MemberSerializer,
+    SheetSerializer,
+    TimeSerializer,
+    TaskSerializer,
+    CellSerializer,
+    ManualSerializer,
+)
 
 
 class BelongViewSet(viewsets.ModelViewSet):
@@ -44,3 +54,8 @@ class CellViewSet(viewsets.ModelViewSet):
     queryset = Cell.objects.all()
     serializer_class = CellSerializer
     filter_fields = ('sheet', 'member', 'time', 'task')
+
+
+class ManualViewSet(viewsets.ModelViewSet):
+    queryset = Manual.objects.all()
+    serializer_class = ManualSerializer

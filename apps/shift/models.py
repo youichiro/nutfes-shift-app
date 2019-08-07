@@ -62,8 +62,8 @@ class Member(models.Model):
 
     class Meta:
         db_table = 'members'
-        verbose_name_plural = '局員'
-        verbose_name = '局員'
+        verbose_name_plural = 'メンバー'
+        verbose_name = 'メンバー'
 
     def __str__(self):
         return self.name
@@ -144,8 +144,8 @@ class Cell(models.Model):
     class Meta:
         db_table = 'cells'
         unique_together = (("sheet", "member", "time"),)
-        verbose_name_plural = 'シフト'
-        verbose_name = 'シフト'
+        verbose_name_plural = 'セル'
+        verbose_name = 'セル'
 
     def __str__(self):
         return "{}_{}_{}時{}分_{}".format(

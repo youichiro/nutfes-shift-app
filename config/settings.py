@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'apps.account',
     'apps.shift',
     'apps.api',
+    'apps.manual',
 ]
 
 MIDDLEWARE = [
