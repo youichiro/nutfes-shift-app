@@ -4,6 +4,7 @@ from django.db import models
 class Manual(models.Model):
     """技大祭マニュアルモデル"""
     id = models.AutoField(primary_key=True)
+    category = models.CharField('分類', max_length=30)
     title = models.CharField('タイトル', max_length=30)
     url = models.URLField(max_length=100, null=True, blank=True)
     order = models.IntegerField('順番', null=True, blank=True)
