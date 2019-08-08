@@ -74,7 +74,6 @@ class Sheet(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField('シート名', max_length=30, help_text='ex) 1日目, 片付け日')
     date = models.DateField('実施日')
-    is_active = models.BooleanField('有効なシートかどうか', default=True)
 
     class Meta:
         db_table = 'sheets'
@@ -91,7 +90,6 @@ class Time(models.Model):
     start_time = models.TimeField('開始時刻', unique=True)
     end_time = models.TimeField('終了時刻', unique=True)
     row_number = models.IntegerField('行番号', unique=True)
-    is_now = models.BooleanField('現在時刻かどうか', default=False)
 
     class Meta:
         db_table = 'times'

@@ -1,6 +1,5 @@
 import openpyxl
 from tqdm import tqdm
-from django.conf import settings
 from apps.shift.models import Task, Cell, Member, Time
 
 
@@ -113,7 +112,6 @@ def main():
     register(sat_rain_sheet, sheet_id=3)
     del sat_sun_sheet
     del sat_rain_sheet
-
 
     filename = 'static/xlsx/sun_shift.xlsx'
     wb = openpyxl.load_workbook(filename)
