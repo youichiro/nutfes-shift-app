@@ -18,7 +18,6 @@ def create_timetable_json(request):
             start_time = ''
             cells = TimeTable.objects.filter(sheet_name=sheet_name, place=place).order_by('start_time')
             for i, cell in enumerate(cells):
-                if sheet_name == '一日目晴れ' and place == 'メインステージ':
                 if n_cell == 1:
                     start_time = cell.start_time
                 if i != len(cells) - 1 and cell.event.name == cells[i+1].event.name:
