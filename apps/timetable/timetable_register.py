@@ -117,6 +117,9 @@ def register(sheet, place_range, active_range):
             end_time = sheet['B' + str(row)].value
             if type(end_time) == datetime.time:
                 end_time = end_time.strftime('%H:%M')
+
+            if not event_name and TimeTable.objects.filter(sheet_name=sheet.title, place=place, start_time=start_time):
+                continue
             save_cell(sheet.title, place, start_time, end_time, event)
 
 
