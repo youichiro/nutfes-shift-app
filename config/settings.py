@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'apps.shift',
     'apps.api',
     'apps.manual',
+    'apps.timetable',
 ]
 
 MIDDLEWARE = [
