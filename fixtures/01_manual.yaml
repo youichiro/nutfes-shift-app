@@ -1,0 +1,239 @@
+- model: manual.Manual
+  pk: 1
+  fields:
+    category: '当日業務マニュアル'
+    title: '緊急時対応マニュアル'
+
+- model: manual.Manual
+  pk: 2
+  fields:
+    category: '当日業務マニュアル'
+    title: '巡回マニュアル'
+
+- model: manual.Manual
+  pk: 3
+  fields:
+    category: '当日業務マニュアル'
+    title: '開閉店チェックマニュアル'
+
+- model: manual.Manual
+  pk: 4
+  fields:
+    category: '当日業務マニュアル'
+    title: 'セコム管理マニュアル'
+
+- model: manual.Manual
+  pk: 5
+  fields:
+    category: '当日業務マニュアル'
+    title: '案内所対応マニュアル'
+
+- model: manual.Manual
+  pk: 6
+  fields:
+    category: '当日業務マニュアル'
+    title: '外部対応マニュアル'
+
+- model: manual.Manual
+  pk: 7
+  fields:
+    category: '当日業務マニュアル'
+    title: 'ゲスト業務マニュアル'
+
+- model: manual.Manual
+  pk: 8
+  fields:
+    category: '当日業務マニュアル'
+    title: '来場者対応マニュアル'
+
+- model: manual.Manual
+  pk: 9
+  fields:
+    category: '当日業務マニュアル'
+    title: 'D講対応マニュアル'
+
+- model: manual.Manual
+  pk: 10
+  fields:
+    category: '当日業務マニュアル'
+    title: 'ゴミ箱待機マニュアル'
+
+- model: manual.Manual
+  pk: 11
+  fields:
+    category: '当日業務マニュアル'
+    title: 'ポパイ待機マニュアル'
+
+- model: manual.Manual
+  pk: 12
+  fields:
+    category: '当日業務マニュアル'
+    title: 'シャトルバス対応マニュアル'
+
+- model: manual.Manual
+  pk: 13
+  fields:
+    category: '当日業務マニュアル'
+    title: 'アンケート巡回マニュアル'
+
+- model: manual.Manual
+  pk: 14
+  fields:
+    category: '当日業務マニュアル'
+    title: 'ゴミ分別対応マニュアル'
+
+- model: manual.Manual
+  pk: 15
+  fields:
+    category: '当日業務マニュアル'
+    title: 'カメラマニュアル'
+
+- model: manual.Manual
+  pk: 16
+  fields:
+    category: '当日業務マニュアル'
+    title: 'ビンゴマニュアル'
+
+- model: manual.Manual
+  pk: 17
+  fields:
+    category: '当日業務マニュアル'
+    title: 'フレパマニュアル'
+
+- model: manual.Manual
+  pk: 18
+  fields:
+    category: '準々備日業務マニュアル'
+    title: '物品移動マニュアル'
+
+- model: manual.Manual
+  pk: 19
+  fields:
+    category: '準備日業務マニュアル'
+    title: '講義棟物品貸出マニュアル'
+
+- model: manual.Manual
+  pk: 20
+  fields:
+    category: '準備日業務マニュアル'
+    title: '体育館物品貸出マニュアル'
+
+- model: manual.Manual
+  pk: 21
+  fields:
+    category: '準備日業務マニュアル'
+    title: '配線マニュアル'
+
+- model: manual.Manual
+  pk: 22
+  fields:
+    category: '準備日業務マニュアル'
+    title: '休憩所設営マニュアル'
+
+- model: manual.Manual
+  pk: 23
+  fields:
+    category: '準備日業務マニュアル'
+    title: 'おむつ交換場所設営マニュアル'
+
+- model: manual.Manual
+  pk: 24
+  fields:
+    category: '準備日業務マニュアル'
+    title: 'ゴミ箱設営マニュアル'
+
+- model: manual.Manual
+  pk: 25
+  fields:
+    category: '準備日業務マニュアル'
+    title: '案内所設営マニュアル'
+
+- model: manual.Manual
+  pk: 26
+  fields:
+    category: '準備日業務マニュアル'
+    title: '地域他大学用テント設営マニュアル'
+
+- model: manual.Manual
+  pk: 27
+  fields:
+    category: '片付け日業務マニュアル'
+    title: '講義棟物返却マニュアル'
+
+- model: manual.Manual
+  pk: 28
+  fields:
+    category: '片付け日業務マニュアル'
+    title: '体育館物品返却マニュアル'
+
+- model: manual.Manual
+  pk: 29
+  fields:
+    category: '片付け日業務マニュアル'
+    title: '休憩所撤収マニュアル'
+
+- model: manual.Manual
+  pk: 30
+  fields:
+    category: '片付け日業務マニュアル'
+    title: 'おむつ交換場所撤収マニュアル'
+
+- model: manual.Manual
+  pk: 31
+  fields:
+    category: '片付け日業務マニュアル'
+    title: '配線撤去マニュアル'
+
+- model: manual.Manual
+  pk: 32
+  fields:
+    category: '片付け日業務マニュアル'
+    title: 'ゴミ箱撤収マニュアル'
+
+- model: manual.Manual
+  pk: 33
+  fields:
+    category: '片付け日業務マニュアル'
+    title: '案内所撤収マニュアル'
+
+- model: manual.Manual
+  pk: 34
+  fields:
+    category: '片付け日業務マニュアル'
+    title: '地域他大学用テント撤収マニュアル'
+
+- model: manual.Manual
+  pk: 35
+  fields:
+    category: '諸注意'
+    title: '諸注意'
+
+- model: manual.Manual
+  pk: 36
+  fields:
+    category: '諸注意'
+    title: '指揮系統フローチャート'
+
+- model: manual.Manual
+  pk: 37
+  fields:
+    category: '諸注意'
+    title: '各担当者連絡先一覧'
+
+- model: manual.Manual
+  pk: 38
+  fields:
+    category: '諸注意'
+    title: '貸出物品説明表'
+
+- model: manual.Manual
+  pk: 39
+  fields:
+    category: '諸注意'
+    title: 'タイムスケジュール'
+
+- model: manual.Manual
+  pk: 40
+  fields:
+    category: '諸注意'
+    title: '駐車場案内'

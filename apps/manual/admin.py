@@ -5,7 +5,7 @@ from .models import Manual
 class ManualAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'url', 'order')
     ordering = ('id',)
-    list_editable = ('order',)
+    list_editable = ('url', 'order')
 
 
 admin.site.register(Manual, ManualAdmin)
