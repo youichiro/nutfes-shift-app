@@ -3,12 +3,10 @@ import datetime
 from .models import TimeTable, Event
 
 
-COMMON_OPTION = {
-    'file_path': 'static/xlsx/timetable.xlsx',
-    'final_row_num': 34
-}
+FILE_PATH = 'static/xlsx/timetable.xlsx'
+FINAL_ROW_NUM = 34
 
-SHEET_OPTIONS = [
+SHEETS = [
     {
         'sheet_name': '一日目晴れ',
         'place_range': 'C1:L1',
@@ -91,7 +89,7 @@ def register(sheet, place_range, active_range):
                 # 範囲外のセルは除外する
                 if col not in column2place.keys():
                     continue
-                if row > COMMON_OPTION['final_row_num']:
+                if row > FINAL_ROW_NUM:
                     continue
 
                 place = column2place[col]
@@ -124,8 +122,8 @@ def register(sheet, place_range, active_range):
 
 
 def main():
-    wb = openpyxl.load_workbook(COMMON_OPTION['file_path'])
-    for sheet_option in SHEET_OPTIONS:
-        sheet = wb[sheet_option['sheet_name']]
-        print(f'Saving timetable: {sheet_option["sheet_name"]} ...')
-        register(sheet, sheet_option['place_range'], sheet_option['active_range'])
+    wb = openpyxl.load_workbook(FILE_PATH)
+    for sheet_obj in SHEETS:
+        sheet = wb[sheet_obj['sheet_name']]
+        print(f'Saving timetable: {sheet_obj["sheet_name"]} ...')
+        register(sheet, sheet_obj['place_range'], sheet_obj['active_range'])

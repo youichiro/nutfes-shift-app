@@ -4,7 +4,6 @@ from django.http import JsonResponse
 
 
 def create_shift_data_json(request, sheet_id):
-    # TODO: 同じ時間帯のメンバーを追加
     sheet_name = Sheet.objects.get(id=sheet_id).name
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
 
@@ -27,6 +26,7 @@ def create_shift_data_json(request, sheet_id):
                 'time': '',
                 'start_time_id': 1,
                 'end_time_id': 2,
+                'members': '',
             })
 
         n_cell = 1
@@ -42,6 +42,8 @@ def create_shift_data_json(request, sheet_id):
             else:
                 end_time = cell.time.end_time
                 end_time_id = cell.time.id
+                same_time_cells = Cell.objects.filter(sheet__name=sheet_name, task=cell.task, time_id__gte=start_time_id, time_id__lte=end_time_id)
+                members = list(set([cell.member.name for cell in same_time_cells]))
                 tasks.append({
                     'name': cell.task.name,
                     'description': cell.task.description,
@@ -57,6 +59,7 @@ def create_shift_data_json(request, sheet_id):
                     ),
                     'start_time_id': start_time_id,
                     'end_time_id': end_time_id,
+                    'members': ', '.join(members),
                 })
                 n_cell = 1
 

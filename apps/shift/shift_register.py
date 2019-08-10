@@ -5,6 +5,39 @@ from apps.shift.models import Task, Cell, Member, Time
 
 MEMBER_RANGE = 'B3:DE3'
 
+FILES = [
+    {
+        'filename': "static/xlsx/sat_shift.xlsx",
+        'sheets': [
+            {
+                'name': '1日目晴',
+                'sheet_name': '晴',
+                'sheet_id': 2,
+            },
+            {
+                'name': '1日目雨',
+                'sheet_name': '雨',
+                'sheet_id': 3,
+            }
+        ]
+    },
+    {
+        'filename': 'static/xlsx/sun_shift.xlsx',
+        'sheets': [
+            {
+                'name': '2日目晴',
+                'sheet_name': '晴',
+                'sheet_id': 4,
+            },
+            {
+                'name': '2日目雨',
+                'sheet_name': '雨',
+                'sheet_id': 5,
+            }
+        ]
+    },
+]
+
 
 def get_value_list(tuple_2d):
     return [[cell.value for cell in row] for row in tuple_2d]
@@ -102,24 +135,8 @@ def register(sheet, sheet_id):
 
 
 def main():
-    filename = 'static/xlsx/sat_shift.xlsx'
-    wb = openpyxl.load_workbook(filename)
-    sat_sun_sheet = wb['晴']
-    print('saving sat_sun_sheet...')
-    register(sat_sun_sheet, sheet_id=2)
-    sat_rain_sheet = wb['雨']
-    print('saving sat_rain_sheet...')
-    register(sat_rain_sheet, sheet_id=3)
-    del sat_sun_sheet
-    del sat_rain_sheet
-
-    filename = 'static/xlsx/sun_shift.xlsx'
-    wb = openpyxl.load_workbook(filename)
-    sun_sun_sheet = wb['晴']
-    print('saving sun_sun_sheet...')
-    register(sun_sun_sheet, sheet_id=4)
-    sun_rain_sheet = wb['雨']
-    print('saving sun_rain_sheet...')
-    register(sun_rain_sheet, sheet_id=5)
-    del sun_sun_sheet
-    del sun_rain_sheet
+    for file in FILES:
+        wb = openpyxl.load_workbook(file['filename'])
+        for sheet in file['sheets']:
+            print(f'Saving {sheet["name"]}...')
+            register(sheet=wb[sheet['sheet_name']], sheet_id=sheet['sheet_id'])
