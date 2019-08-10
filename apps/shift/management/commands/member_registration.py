@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from apps.shift.member_register import main
+from apps.shift.scripts.member_register import main
 
 
 class Command(BaseCommand):

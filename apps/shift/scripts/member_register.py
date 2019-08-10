@@ -1,6 +1,6 @@
 import openpyxl
 from django.conf import settings
-from .models import Belong, Department, Grade, Member
+from apps.shift.models import Belong, Department, Grade, Member
 
 FILENAME = 'members.xlsx'
 CATEGORY_RANGE = 'B2:B147'

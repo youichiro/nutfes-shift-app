@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from apps.timetable.timetable_register import main
+from apps.timetable.scripts.timetable_register import main
 
 
 class Command(BaseCommand):

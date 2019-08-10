@@ -1,6 +1,6 @@
 import openpyxl
 import datetime
-from .models import TimeTable, Event
+from apps.timetable.models import TimeTable, Event
 
 
 FILE_PATH = 'static/xlsx/timetable.xlsx'
