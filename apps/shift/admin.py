@@ -21,6 +21,8 @@ class GradeAdmin(admin.ModelAdmin):
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'student_id', 'belong', 'department', 'grade', 'is_leader', 'is_subleader')
     ordering = ('belong__order',)
+    search_fields = ('name',)
+    list_filter = ('belong',)
 
 
 class SheetAdmin(admin.ModelAdmin):
@@ -37,6 +39,7 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = ('name', 'place', 'color', 'description')
     ordering = ('id',)
     list_editable = ('color',)
+    search_fields = ('name',)
 
 
 class CellAdmin(admin.ModelAdmin):
