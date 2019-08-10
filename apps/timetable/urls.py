@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import create_timetable_json
+from .views import timetable_json
 
 
 urlpatterns = [
-    path('api/', create_timetable_json, name='timetable_api')
+    path('api/', timetable_json, name='timetable_api')
 ]

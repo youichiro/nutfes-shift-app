@@ -4,5 +4,6 @@
 .vscode
 __pycache__
 config/local_settings.py
-static
+static/xlsx/*
+static/json/*
 !.gitkeep
