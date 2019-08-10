@@ -2,7 +2,7 @@ import json
 from apps.timetable.models import TimeTable
 
 
-def create_timetable_json(filename):
+def create_timetable_json(filename='static/json/timetable.json', return_json=False):
     sheet_names = TimeTable.objects.values_list('sheet_name', flat=True)
     sheet_names = list(dict.fromkeys(sheet_names))
     response = []
@@ -39,6 +39,9 @@ def create_timetable_json(filename):
             'sheet_name': sheet_name,
             'data': data
         })
+
+    if return_json:
+        return response
 
     with open(filename, 'w') as f:
         json.dump(response, f, ensure_ascii=False)

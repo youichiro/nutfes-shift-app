@@ -14,6 +14,8 @@ python manage.py member_registration
 python manage.py shift_registration 
 python manage.py timetable_registration
 python manage.py loaddata fixtures/01_manual.yaml
+python manage.py create_shift_data_json
+python manage.py create_timetable_data_json
 ```
 
 起動

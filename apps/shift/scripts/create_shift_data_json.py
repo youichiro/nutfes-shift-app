@@ -3,7 +3,7 @@ from tqdm import tqdm
 from apps.shift.models import Time, Sheet, Member, Cell
 
 
-def create_shift_data_json(sheet_id, filename):
+def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', return_json=False):
     sheet_name = Sheet.objects.get(id=sheet_id).name
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
 
@@ -42,7 +42,10 @@ def create_shift_data_json(sheet_id, filename):
             else:
                 end_time = cell.time.end_time
                 end_time_id = cell.time.id
-                same_time_cells = Cell.objects.filter(sheet__name=sheet_name, task=cell.task, time_id__gte=start_time_id, time_id__lte=end_time_id)
+                same_time_cells = Cell.objects.filter(sheet__name=sheet_name,
+                                                      task=cell.task,
+                                                      time_id__gte=start_time_id,
+                                                      time_id__lte=end_time_id)
                 members = list(set([cell.member.name for cell in same_time_cells]))
                 tasks.append({
                     'name': cell.task.name,
@@ -51,12 +54,7 @@ def create_shift_data_json(sheet_id, filename):
                     'place': cell.task.place,
                     'color': cell.task.color,
                     'manual_url': cell.task.manual_url,
-                    'time': '{}:{} ~ {}:{}'.format(
-                        str(start_time.hour).rjust(2, '0'),
-                        str(start_time.minute).rjust(2, '0'),
-                        str(end_time.hour).rjust(2, '0'),
-                        str(end_time.minute).rjust(2, '0')
-                    ),
+                    'time': '{} ~ {}'.format(start_time.strftime('%H:%M'), end_time.strftime('%H:%M')),
                     'start_time_id': start_time_id,
                     'end_time_id': end_time_id,
                     'members': ', '.join(members),
@@ -74,6 +72,9 @@ def create_shift_data_json(sheet_id, filename):
             'tasks': tasks
         })
     response = {'sheet_name': sheet_name, 'data': data}
+
+    if return_json:
+        return response
 
     with open(filename, 'w') as f:
         json.dump(response, f, ensure_ascii=False)

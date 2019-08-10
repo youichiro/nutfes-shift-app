@@ -9,6 +9,7 @@ sys.path.append(os.path.join(BASE_DIR, "apps"))
 SECRET_KEY = 't!r7fj7j6+3r)-nk^ddefi(q72ou-o=(4gfqb%6wp=l=yxuva6'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+LOADING_API = True  # APIを呼び出すか，ローカルのJSONファイルを読み込むか
 
 INSTALLED_APPS = [
     'django.contrib.admin',
