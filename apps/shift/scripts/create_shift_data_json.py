@@ -3,6 +3,17 @@ from tqdm import tqdm
 from apps.shift.models import Time, Sheet, Member, Cell
 
 
+def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
+    same_time_cells = Cell.objects.filter(sheet__name=sheet_name,
+                                          task__name=task_name,
+                                          time_id__gte=start_time_id,
+                                          time_id__lte=end_time_id)
+    if not same_time_cells:
+        return []
+    members = list(set([cell.member.name for cell in same_time_cells]))
+    return members
+
+
 def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', return_json=False):
     sheet_name = Sheet.objects.get(id=sheet_id).name
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
@@ -26,7 +37,7 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
                 'time': '',
                 'start_time_id': 1,
                 'end_time_id': 2,
-                'members': '',
+                'members': [],
             })
 
         n_cell = 1
@@ -42,11 +53,11 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
             else:
                 end_time = cell.time.end_time
                 end_time_id = cell.time.id
-                same_time_cells = Cell.objects.filter(sheet__name=sheet_name,
-                                                      task=cell.task,
-                                                      time_id__gte=start_time_id,
-                                                      time_id__lte=end_time_id)
-                members = list(set([cell.member.name for cell in same_time_cells]))
+                if return_json:
+                    members = []
+                else:
+                    members = get_same_time_members(sheet_name, cell.task.name, start_time_id, end_time_id)
+
                 tasks.append({
                     'name': cell.task.name,
                     'description': cell.task.description,
@@ -57,7 +68,7 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
                     'time': '{} ~ {}'.format(start_time.strftime('%H:%M'), end_time.strftime('%H:%M')),
                     'start_time_id': start_time_id,
                     'end_time_id': end_time_id,
-                    'members': ', '.join(members),
+                    'members': members,
                 })
                 n_cell = 1
 
