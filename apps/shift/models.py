@@ -8,7 +8,7 @@ class Belong(models.Model):
     subcategory_name = models.CharField('部門', null=True, blank=True, max_length=30)
     short_name = models.CharField('略称', max_length=30)
     color = models.CharField('局・部門カラー', max_length=30, default='black')
-    order = models.IntegerField('優先順位')
+    order = models.IntegerField('優先順位', null=True, blank=True)
 
     class Meta:
         db_table = 'belongs'
@@ -37,7 +37,7 @@ class Grade(models.Model):
     """学年モデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('学年', max_length=30)
-    order = models.IntegerField('優先順位')
+    order = models.IntegerField('優先順位', null=True, blank=True)
 
     class Meta:
         db_table = 'grades'

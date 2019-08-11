@@ -37,7 +37,7 @@ def init_belong():
     """所属の初期化"""
     for i, (category_name, subcategory_name, short_name) in enumerate(settings.BELONGS):
         Belong.objects.create(id=i+1, category_name=category_name,
-                              subcategory_name=subcategory_name, short_name=short_name, order=i+1)
+                              subcategory_name=subcategory_name, short_name=short_name)
 
 
 def init_sheet():

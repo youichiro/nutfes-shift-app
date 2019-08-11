@@ -4,6 +4,7 @@ from apps.shift.models import Time, Sheet, Member, Cell
 
 
 def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
+    """同じ時間帯のメンバーリストを返す"""
     same_time_cells = Cell.objects.filter(sheet__name=sheet_name,
                                           task__name=task_name,
                                           time_id__gte=start_time_id,
@@ -15,6 +16,7 @@ def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
 
 
 def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', return_json=False):
+    """シフト表示用JSONを作成. return_jsonがFalseのときJSONファイルを保存し，TrueのときJSONオブジェクトを返す."""
     sheet_name = Sheet.objects.get(id=sheet_id).name
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
 
