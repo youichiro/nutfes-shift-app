@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse
 from django.conf import settings
 from apps.shift.scripts.create_shift_data_json import create_shift_data_json, get_same_time_members
+from apps.shift.models import Member
 
 
 def shift_data_json(request, sheet_id):
@@ -20,3 +21,11 @@ def same_time_members_json(request, sheet_name, task_name, start_time_id, end_ti
     response = get_same_time_members(sheet_name, task_name, start_time_id, end_time_id)
     response = json.dumps(response, ensure_ascii=False)
     return JsonResponse(response, safe=False)
+
+
+def is_nutfes_email(request, email):
+    member = Member.objects.filter(email=email)
+    if member:
+        return JsonResponse(True, safe=False)
+    else:
+        return JsonResponse(False, safe=False)
