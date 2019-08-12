@@ -24,8 +24,9 @@ def same_time_members_json(request, sheet_name, task_name, start_time_id, end_ti
 
 
 def is_nutfes_email(request, email):
-    member = Member.objects.filter(email=email)
+    member = Member.objects.filter(email=email).first()
     if member:
-        return JsonResponse(True, safe=False)
+        response = json.dumps(member.name, ensure_ascii=False)
+        return JsonResponse(response, safe=False)
     else:
         return JsonResponse(False, safe=False)
