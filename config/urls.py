@@ -10,5 +10,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('shift/', include('apps.shift.urls')),
     path('timetable/', include('apps.timetable.urls')),
+    path('option/', include('apps.option.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]

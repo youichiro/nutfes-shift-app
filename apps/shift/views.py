@@ -3,10 +3,14 @@ from django.http import JsonResponse
 from django.conf import settings
 from apps.shift.scripts.create_shift_data_json import create_shift_data_json, get_same_time_members
 from apps.shift.models import Member
+from apps.option.models import Option
 
 
 def shift_data_json(request, sheet_id):
-    if settings.LOADING_API:
+    option = Option.objects.first()
+    api_mode = option.api_mode if option else settings.API_MODE
+
+    if api_mode:
         response = create_shift_data_json(sheet_id, return_json=True)
     else:
         filename = f'static/json/shift_data_{sheet_id}.json'
@@ -27,6 +31,6 @@ def is_nutfes_email(request, email):
     member = Member.objects.filter(email=email).first()
     if member:
         response = json.dumps(member.name, ensure_ascii=False)
-        return JsonResponse(response, safe=False)
     else:
-        return JsonResponse(False, safe=False)
+        response = False
+    return JsonResponse(response, safe=False)

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.db.utils import IntegrityError
 from apps.shift.models import Belong, Department, Grade, Sheet, Time
+from apps.option.models import Option
 
 
 class Command(BaseCommand):
@@ -70,3 +71,12 @@ def init_time():
             end_time=time+timezone.timedelta(minutes=settings.SHIFT_INTERVAL),
             row_number=row
         )
+
+
+def init_option():
+    """共通オプションの生成"""
+    Option.objects.create(
+        id=1,
+        weather='晴',
+        api_mode=True
+    )
