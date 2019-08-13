@@ -19,14 +19,14 @@ class GradeAdmin(admin.ModelAdmin):
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'student_id', 'belong', 'department', 'grade', 'is_leader', 'is_subleader')
-    ordering = ('belong__order',)
+    list_display = ('id', 'name', 'belong', 'department', 'grade', 'is_leader', 'is_subleader', 'email')
+    ordering = ('id',)
     search_fields = ('name',)
-    list_filter = ('belong',)
+    list_filter = ('belong__category_name',)
 
 
 class SheetAdmin(admin.ModelAdmin):
-    list_display = ('name', 'date')
+    list_display = ('name',)
     ordering = ('id',)
 
 

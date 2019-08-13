@@ -17,6 +17,7 @@ class Command(BaseCommand):
             init_belong()
             init_sheet()
             init_time()
+            init_option()
             self.stdout.write('Initialized tables')
         except IntegrityError:
             self.stdout.write('Init data already exists. Run `python manage.py flush` to clean database.')
@@ -31,20 +32,22 @@ def init_department():
 def init_grade():
     """学年の初期化"""
     for i, name in enumerate(settings.GRADES):
-        Grade.objects.create(id=i+1, name=name, order=i+1)
+        Grade.objects.create(id=i+1, name=name)
 
 
 def init_belong():
     """所属の初期化"""
     for i, (category_name, subcategory_name, short_name) in enumerate(settings.BELONGS):
-        Belong.objects.create(id=i+1, category_name=category_name,
-                              subcategory_name=subcategory_name, short_name=short_name)
+        Belong.objects.create(id=i+1,
+                              category_name=category_name,
+                              subcategory_name=subcategory_name,
+                              short_name=short_name)
 
 
 def init_sheet():
     """シートの初期化"""
-    for i, (name, date) in enumerate(settings.FES_DATES):
-        Sheet.objects.create(id=i+1, name=name, date=date)
+    for i, name in enumerate(settings.SHEETS):
+        Sheet.objects.create(id=i+1, name=name)
 
 
 def init_time():
@@ -75,8 +78,6 @@ def init_time():
 
 def init_option():
     """共通オプションの生成"""
-    Option.objects.create(
-        id=1,
-        weather='晴',
-        api_mode=True
-    )
+    Option.objects.create(id=1,
+                          weather='晴',
+                          api_mode=True)

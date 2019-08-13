@@ -12,12 +12,12 @@ FILES = [
             {
                 'name': '1日目晴',
                 'sheet_name': '晴',
-                'sheet_id': 2,
+                'sheet_id': 3,
             },
             {
                 'name': '1日目雨',
                 'sheet_name': '雨',
-                'sheet_id': 3,
+                'sheet_id': 4,
             }
         ]
     },
@@ -27,12 +27,12 @@ FILES = [
             {
                 'name': '2日目晴',
                 'sheet_name': '晴',
-                'sheet_id': 4,
+                'sheet_id': 5,
             },
             {
                 'name': '2日目雨',
                 'sheet_name': '雨',
-                'sheet_id': 5,
+                'sheet_id': 6,
             }
         ]
     },
@@ -107,7 +107,10 @@ def register(sheet, sheet_id):
                     continue
 
                 name = column2name[col]
-                member = Member.objects.filter(name=name).first()
+                member = Member.objects.filter(name=name)
+                if not member:
+                    continue
+                member = member.first()
                 time = Time.objects.get(row_number=row)
                 save_cell(sheet_id, member, time, task)
 
@@ -129,7 +132,10 @@ def register(sheet, sheet_id):
             if not task:
                 continue
 
-            member = Member.objects.filter(name=name).first()
+            member = Member.objects.filter(name=name)
+            if not member:
+                continue
+            member = member.first()
             time = Time.objects.get(row_number=row)
             save_cell(sheet_id, member, time, task)
 

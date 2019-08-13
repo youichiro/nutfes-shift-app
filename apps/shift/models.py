@@ -51,9 +51,8 @@ class Grade(models.Model):
 class Member(models.Model):
     """局員モデル"""
     id = models.AutoField(primary_key=True)
-    name = models.CharField('名前', max_length=100)
+    name = models.CharField('名前', max_length=100, unique=True)
     email = models.EmailField('メールアドレス', unique=True)
-    student_id = models.CharField('学籍番号', max_length=8, unique=True)
     belong = models.ForeignKey(Belong, on_delete=models.PROTECT)
     department = models.ForeignKey(Department, on_delete=models.PROTECT)
     grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
@@ -73,7 +72,6 @@ class Sheet(models.Model):
     """シートモデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('シート名', max_length=30, help_text='ex) 1日目, 片付け日')
-    date = models.DateField('実施日')
 
     class Meta:
         db_table = 'sheets'
