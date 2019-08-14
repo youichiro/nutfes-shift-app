@@ -19,7 +19,7 @@ class GradeAdmin(admin.ModelAdmin):
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'belong', 'department', 'grade', 'is_leader', 'is_subleader', 'email')
+    list_display = ('id', 'name', 'belong', 'department', 'grade', 'is_leader', 'is_subleader', 'email', 'phone_number')
     ordering = ('id',)
     search_fields = ('name',)
     list_filter = ('belong__category_name',)

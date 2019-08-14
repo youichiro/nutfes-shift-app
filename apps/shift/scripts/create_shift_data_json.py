@@ -24,31 +24,50 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
     for member in tqdm(Member.objects.all()):
         name = member.name
         tasks = []
-        cells = Cell.objects.filter(member__name=name, sheet__name=sheet_name)
+        start_time_id = 1
+        end_time_id = 1
+        cells = Cell.objects.filter(sheet__name=sheet_name, member__name=name).order_by('time__id')
         if not cells:
             continue
-        if cells[0].time.start_time != Time.objects.first().start_time:
-            # 最初の空白セルを追加する
-            tasks.append({
-                'name': '',
-                'description': '',
-                'n_cell': 2,
-                'place': '',
-                'color': '',
-                'manual_url': '',
-                'time': '',
-                'start_time_id': 1,
-                'end_time_id': 2,
-                'members': [],
-            })
+        if start_time_id != cells[0].time.id:
+            while start_time_id != cells[0].time.id:
+                # 最初の空白セルを追加する
+                tasks.append({
+                    'name': '',
+                    'description': '',
+                    'n_cell': 1,
+                    'place': '',
+                    'color': '',
+                    'manual_url': '',
+                    'time': '',
+                    'start_time_id': start_time_id,
+                    'end_time_id': end_time_id,
+                    'members': [],
+                })
+                start_time_id += 1
+                end_time_id += 1
 
         n_cell = 1
         start_time = ''
-        start_time_id = 1
         for i, cell in enumerate(cells):
             if n_cell == 1:
                 start_time = cell.time.start_time
                 start_time_id = cell.time.id
+            if start_time_id > end_time_id + 1:
+                while start_time_id != end_time_id + 1:
+                    tasks.append({
+                        'name': '',
+                        'description': '',
+                        'n_cell': 1,
+                        'place': '',
+                        'color': '',
+                        'manual_url': '',
+                        'time': '',
+                        'start_time_id': end_time_id + 1,
+                        'end_time_id': end_time_id + 1,
+                        'members': [],
+                    })
+                    end_time_id += 1
             if i != len(cells) - 1 and cell.task.name == cells[i+1].task.name:
                 n_cell += 1
                 continue

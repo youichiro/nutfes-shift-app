@@ -52,12 +52,13 @@ class Member(models.Model):
     """局員モデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('名前', max_length=100, unique=True)
-    email = models.EmailField('メールアドレス', unique=True)
     belong = models.ForeignKey(Belong, on_delete=models.PROTECT)
     department = models.ForeignKey(Department, on_delete=models.PROTECT)
     grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
     is_leader = models.BooleanField('局長/部門長', default=False)
     is_subleader = models.BooleanField('副局長/副部門長', default=False)
+    email = models.EmailField('メールアドレス', unique=True)
+    phone_number = models.CharField('電話番号', max_length=13, null=True, blank=True)
 
     class Meta:
         db_table = 'members'

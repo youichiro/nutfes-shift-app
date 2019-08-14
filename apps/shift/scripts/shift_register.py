@@ -10,7 +10,7 @@ FILES = [
         'filename': "static/xlsx/sat_shift.xlsx",
         'sheets': [
             {
-                'name': '1日目晴',
+                'name': '1日目晴れ',
                 'sheet_name': '晴',
                 'sheet_id': 3,
             },
@@ -25,7 +25,7 @@ FILES = [
         'filename': 'static/xlsx/sun_shift.xlsx',
         'sheets': [
             {
-                'name': '2日目晴',
+                'name': '2日目晴れ',
                 'sheet_name': '晴',
                 'sheet_id': 5,
             },
@@ -141,6 +141,13 @@ def register(sheet, sheet_id):
 
 
 def main():
+    if Cell.objects.first():
+        Cell.objects.all().delete()
+        print('All Cell was deleted')
+    if Task.objects.first():
+        Task.objects.all().delete()
+        print('All Task was deleted')
+
     for file in FILES:
         wb = openpyxl.load_workbook(file['filename'])
         for sheet in file['sheets']:
