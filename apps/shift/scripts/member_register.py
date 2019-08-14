@@ -1,4 +1,3 @@
-import json
 import openpyxl
 from django.conf import settings
 from apps.shift.models import Belong, Department, Grade, Member
@@ -12,8 +11,6 @@ DEPARTMENT_RANGE = 'F2:F153'
 NAME_RANGE = 'G2:G153'
 EMAIL_RANGE = 'I2:I153'
 PHONE_RANGE = 'K2:K153'
-
-JSON_FILE_PATH = 'static/json/members.json'
 
 
 def get_value_list(tuple_2d):
@@ -55,7 +52,6 @@ def main():
     phone_values = member_sheet[PHONE_RANGE]
     phone_values = get_value_list(phone_values)
 
-    data = []
     for category, subcategory, is_leader, grade, department, name, email, phone \
             in zip(category_values, subcategory_values, is_leader_values, grade_values,
                    department_values, name_values, email_values, phone_values):
@@ -66,7 +62,10 @@ def main():
         belong = Belong.objects.filter(category_name=category[0], subcategory_name=subcategory).first()
         department = Department.objects.filter(name=department[0] or '未所属').first()
         grade = Grade.objects.filter(name=grade[0]).first()
-        is_leader = True if is_leader[0] == '部門長' or subcategory == '局長' else False
+        is_leader = True if (is_leader[0] == '部門長' or
+                             subcategory == '局長' or
+                             category[0] == '委員長' or
+                             category[0] == '副委員長') else False
         is_subleader = True if subcategory == '副局長' else False
         assert belong is not None and department is not None and grade is not None
 
@@ -90,20 +89,4 @@ def main():
                                   email=email,
                                   phone_number=phone_number)
 
-        data.append({
-            'name': name,
-            'belong_category': belong.category_name,
-            'belong_subcategory': belong.subcategory_name,
-            'belong_shortname': belong.short_name,
-            'grade': grade.name,
-            'is_leader': is_leader,
-            'is_subleader': is_subleader,
-            'phone_number': phone_number,
-        })
-
     print("Finished saving members")
-
-    # JSONファイルも作成
-    with open(JSON_FILE_PATH, 'w') as f:
-        json.dump(data, f, ensure_ascii=False)
-    print('Saved json file:', JSON_FILE_PATH)

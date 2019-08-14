@@ -4,18 +4,18 @@ from .models import Belong, Department, Grade, Member, Sheet, Time, Task, Cell
 
 class BelongAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'short_name', 'color', 'order')
-    ordering = ('order',)
+    ordering = ('id',)
     list_editable = ('color',)  # 一覧ページで編集できる
 
 
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('id', 'name',)
     ordering = ('id',)
 
 
 class GradeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'order')
-    ordering = ('order',)
+    list_display = ('id', 'name', 'order')
+    ordering = ('id',)
 
 
 class MemberAdmin(admin.ModelAdmin):

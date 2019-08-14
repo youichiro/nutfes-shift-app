@@ -1,6 +1,6 @@
 import json
 from tqdm import tqdm
-from apps.shift.models import Time, Sheet, Member, Cell
+from apps.shift.models import Sheet, Member, Cell
 
 
 def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
@@ -11,8 +11,16 @@ def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
                                           time_id__lte=end_time_id)
     if not same_time_cells:
         return []
-    members = list(set([cell.member.name for cell in same_time_cells]))
-    return members
+    member_names = list(set([cell.member.name for cell in same_time_cells]))
+    data = []
+    for member_name in member_names:
+        member = Member.objects.filter(name=member_name).first()
+        data.append({
+            'name': member_name,
+            'belong': member.belong.category_name,
+            'grade': member.grade.name,
+        })
+    return data
 
 
 def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', return_json=False):
