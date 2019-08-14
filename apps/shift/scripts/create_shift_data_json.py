@@ -12,11 +12,11 @@ def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
     if not same_time_cells:
         return []
     member_names = list(set([cell.member.name for cell in same_time_cells]))
+    members = Member.objects.filter(name__in=member_names).order_by('belong__id', '-grade__id')
     data = []
-    for member_name in member_names:
-        member = Member.objects.filter(name=member_name).first()
+    for member in members:
         data.append({
-            'name': member_name,
+            'name': member.name,
             'belong': member.belong.category_name,
             'grade': member.grade.name,
         })
