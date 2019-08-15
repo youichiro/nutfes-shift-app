@@ -2,10 +2,7 @@ import json
 from apps.shift.models import Member
 
 
-JSON_FILE_PATH = 'static/json/members.json'
-
-
-def main():
+def create_member_json(filename='static/json/members.json', return_json=False):
     data = []
     for member in Member.objects.all().order_by('belong__id', '-is_leader', '-is_subleader', '-grade__id'):
         data.append({
@@ -17,9 +14,16 @@ def main():
             'grade': member.grade.name,
             'is_leader': member.is_leader,
             'is_subleader': member.is_subleader,
-            'phone_number': member.phone_number,
         })
 
-    with open(JSON_FILE_PATH, 'w') as f:
+    if return_json:
+        return data
+
+    with open(filename, 'w') as f:
         json.dump(data, f, ensure_ascii=False)
-    print('Saved json file:', JSON_FILE_PATH)
+
+
+def main():
+    filename = 'static/json/members.json'
+    print(f'Saving members data to {filename}...')
+    create_member_json(filename=filename)
