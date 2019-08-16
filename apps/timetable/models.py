@@ -5,7 +5,7 @@ class Event(models.Model):
     """イベントモデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('イベント名', null=True, blank=True, max_length=100)
-    color = models.CharField('カラー', default='white', max_length=10)
+    color = models.CharField('カラー', default='white', max_length=100)
 
     class Meta:
         db_table = 'events'
