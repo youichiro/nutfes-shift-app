@@ -20,6 +20,12 @@ def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
             'belong': member.belong.category_name,
             'grade': member.grade.name,
         })
+    if len(members) % 2 != 0:
+        data.append({
+            'name': '',
+            'belong': '',
+            'grade': '',
+        })
     return data
 
 
