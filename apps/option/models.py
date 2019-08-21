@@ -1,11 +1,10 @@
 from django.db import models
-
-WEATHERS = [('晴', '晴'), ('雨', '雨')]
+from django.conf import settings
 
 
 class Option(models.Model):
     id = models.AutoField(primary_key=True)
-    weather = models.CharField('天気', max_length=10, choices=WEATHERS, default='晴')
+    weather = models.CharField('天気', max_length=10, choices=settings.WEATHERS, default=settings.WEATHERS[0][0])
     api_mode = models.BooleanField('APIモードか', default=True)
 
     class Meta:

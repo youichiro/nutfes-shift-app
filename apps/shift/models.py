@@ -1,4 +1,6 @@
+import datetime
 from django.db import models
+from django.conf import settings
 
 
 class Belong(models.Model):
@@ -72,7 +74,9 @@ class Member(models.Model):
 class Sheet(models.Model):
     """シートモデル"""
     id = models.AutoField(primary_key=True)
-    name = models.CharField('シート名', max_length=30, help_text='ex) 1日目, 片付け日')
+    name = models.CharField('シート名', max_length=30)
+    day = models.IntegerField('日にち')
+    weather = models.CharField('天気', max_length=10, choices=settings.WEATHERS)
 
     class Meta:
         db_table = 'sheets'
@@ -96,12 +100,11 @@ class Time(models.Model):
         verbose_name = '時間帯'
 
     def __str__(self):
-        return "{}:{}-{}:{}".format(
-            str(self.start_time.hour).rjust(2, '0'),
-            str(self.start_time.minute).rjust(2, '0'),
-            str(self.end_time.hour).rjust(2, '0'),
-            str(self.end_time.minute).rjust(2, '0'),
+        return "{}-{}".format(
+            self.start_time.strftime('%H:%M'),
+            self.end_time.strftime('%H:%M')
         )
+
 
     @staticmethod
     def first_row_number():
@@ -110,6 +113,14 @@ class Time(models.Model):
     @staticmethod
     def last_row_number():
         return max(Time.objects.values_list('row_number', flat=True))
+
+    @staticmethod
+    def get_current_time():
+        now = datetime.datetime.now()
+        hour = now.hour
+        minute = 0 if now.minute < 30 else 30
+        time = datetime.time(hour, minute)
+        return Time.objects.filter(start_time=time).first()
 
 
 class Task(models.Model):

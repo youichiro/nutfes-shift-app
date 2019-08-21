@@ -15,3 +15,13 @@ class DeviceToken(models.Model):
 
     def __str__(self):
         return f'{self.username} {self.token}'
+
+    @staticmethod
+    def uniq_list():
+        uniq_list = []
+        uniq_tokens = []
+        for device_token in DeviceToken.objects.order_by('-updated_at'):
+            if device_token.token not in uniq_tokens:
+                uniq_tokens.append(device_token.token)
+                uniq_list.append(device_token)
+        return uniq_list

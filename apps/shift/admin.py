@@ -26,12 +26,12 @@ class MemberAdmin(admin.ModelAdmin):
 
 
 class SheetAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('id', 'name', 'day', 'weather')
     ordering = ('id',)
 
 
 class TimeAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'start_time', 'end_time')
+    list_display = ('id', '__str__', 'start_time', 'end_time', 'row_number')
     ordering = ('id',)
 
 

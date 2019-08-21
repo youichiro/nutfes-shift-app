@@ -70,9 +70,52 @@ BELONGS = [
     ['未所属', None, '未所属', 'black'],
 ]
 
-# シート名
-SHEETS = ['準備日晴れ', '準備日雨', '1日目晴れ', '1日目雨', '2日目晴れ', '2日目雨', '片付け日晴れ', '片付け日雨']
+# 天気
+WEATHERS = [('晴', '晴'), ('雨', '雨')]
 
+# シート名
+SHEETS = [
+    {
+        "name": "準備日晴れ",
+        "day": 13,
+        "weather": WEATHERS[0][0]
+    },
+    {
+        "name": "準備日雨",
+        "day": 13,
+        "weather": WEATHERS[1][0]
+    },
+    {
+        "name": "1日目晴れ",
+        "day": 14,
+        "weather": WEATHERS[0][0]
+    },
+    {
+        "name": "1日目雨",
+        "day": 14,
+        "weather": WEATHERS[1][0]
+    },
+    {
+        "name": "2日目晴れ",
+        "day": 15,
+        "weather": WEATHERS[0][0]
+    },
+    {
+        "name": "2日目雨",
+        "day": 15,
+        "weather": WEATHERS[1][0]
+    },
+    {
+        "name": "片付け日晴れ",
+        "day": 16,
+        "weather": WEATHERS[0][0]
+    },
+    {
+        "name": "片付け日雨",
+        "day": 16,
+        "weather": WEATHERS[1][0]
+    }
+]
 
 # シフトの時間
 SHIFT_START_TIME = '06:00:00'  # 開始時間

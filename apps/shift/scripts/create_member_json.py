@@ -20,7 +20,7 @@ def create_member_json(filename='static/json/members.json', return_json=False):
         return data
 
     with open(filename, 'w') as f:
-        json.dump(data, f, ensure_ascii=False)
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def main():
