@@ -37,11 +37,12 @@ def init_grade():
 
 def init_belong():
     """所属の初期化"""
-    for i, (category_name, subcategory_name, short_name) in enumerate(settings.BELONGS):
+    for i, (category_name, subcategory_name, short_name, color) in enumerate(settings.BELONGS):
         Belong.objects.create(id=i+1,
                               category_name=category_name,
                               subcategory_name=subcategory_name,
-                              short_name=short_name)
+                              short_name=short_name,
+                              color=color)
 
 
 def init_sheet():

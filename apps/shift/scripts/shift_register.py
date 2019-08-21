@@ -3,11 +3,10 @@ from tqdm import tqdm
 from apps.shift.models import Task, Cell, Member, Time
 
 
-MEMBER_RANGE = 'B3:DE3'
-
 FILES = [
     {
         'filename': "static/xlsx/sat_shift.xlsx",
+        'member_range': 'B3:DS3',
         'sheets': [
             {
                 'name': '1日目晴れ',
@@ -23,6 +22,7 @@ FILES = [
     },
     {
         'filename': 'static/xlsx/sun_shift.xlsx',
+        'member_range': 'B3:DE3',
         'sheets': [
             {
                 'name': '2日目晴れ',
@@ -73,10 +73,10 @@ def save_cell(sheet_id, member, time, task):
         cell.save()
 
 
-def register(sheet, sheet_id):
+def register(sheet, sheet_id, member_range):
     # 列と局員名の対応辞書を作成
     column2name = {}
-    name_cells = sheet[MEMBER_RANGE][0]
+    name_cells = sheet[member_range][0]
     for cell in name_cells:
         name = cell.value
         name = name.replace(' ', '').replace('　', '')
@@ -141,15 +141,18 @@ def register(sheet, sheet_id):
 
 
 def main():
-    if Cell.objects.first():
-        Cell.objects.all().delete()
-        print('All Cell was deleted')
-    if Task.objects.first():
-        Task.objects.all().delete()
-        print('All Task was deleted')
+    if Cell.objects.first() or Task.objects.first():
+        res = input('Do you delete all Cell and Task instances ? [yes/no] ')
+        if res == 'yes':
+            Cell.objects.all().delete()
+            Task.objects.all().delete()
+            print('All Cell and Task instances ware deleted.')
+        else:
+            return
 
     for file in FILES:
         wb = openpyxl.load_workbook(file['filename'])
+        member_range = file['member_range']
         for sheet in file['sheets']:
             print(f'Saving {sheet["name"]}...')
-            register(sheet=wb[sheet['sheet_name']], sheet_id=sheet['sheet_id'])
+            register(sheet=wb[sheet['sheet_name']], sheet_id=sheet['sheet_id'], member_range=member_range)

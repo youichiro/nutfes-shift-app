@@ -35,7 +35,7 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
 
     data = []
-    for member in tqdm(Member.objects.all()):
+    for member in tqdm(Member.objects.all().order_by('belong__id')):
         name = member.name
         tasks = []
         start_time_id = 1

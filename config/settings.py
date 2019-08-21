@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'apps.manual',
     'apps.timetable',
     'apps.option',
+    'apps.notification',
 ]
 
 MIDDLEWARE = [
