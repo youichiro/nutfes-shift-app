@@ -1,3 +1,4 @@
+# coding: -*- utf-8 -*-
 import json
 import datetime
 from apps.shift.models import Time, Cell, Sheet
