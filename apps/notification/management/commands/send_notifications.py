@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from apps.notification.scripts.post_push_requests import main
+from apps.notification.scripts.send_notifications import main
 
 
 class Command(BaseCommand):

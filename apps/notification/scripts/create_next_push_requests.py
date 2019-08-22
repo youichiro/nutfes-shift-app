@@ -11,7 +11,6 @@ def create_next_push_requests(sheet_id, filename):
     for device_token in DeviceToken.uniq_list():
         token = device_token.token
         username = device_token.username
-        print(username)
         current_cell = Cell.objects.filter(sheet_id=sheet_id, member__name=username, time=current_time).first()
         if not current_cell:
             continue
@@ -23,7 +22,11 @@ def create_next_push_requests(sheet_id, filename):
         requests.append({
             'to': token,
             'title': '5分前です',
-            'body': f'次のシフトは「{next_task}」です'
+            'body': f'次のタスクは「{next_task}」です.',
+            'data': {
+                'title': f'5分前です',
+                'body': f'次のタスクは「{next_task}」です'
+            }
         })
 
     with open(filename, 'w') as f:
