@@ -7,11 +7,9 @@ from apps.shift.models import Member
 from apps.option.models import Option
 
 
-option = Option.objects.first()
-api_mode = option.api_mode if option else settings.API_MODE
-
-
 def shift_data_json(request, sheet_id):
+    option = Option.objects.first()
+    api_mode = option.api_mode if option else settings.API_MODE
     if api_mode:
         response = create_shift_data_json(sheet_id, return_json=True)
     else:
@@ -39,6 +37,8 @@ def is_nutfes_email(request, email):
 
 
 def members_json(request):
+    option = Option.objects.first()
+    api_mode = option.api_mode if option else settings.API_MODE
     if api_mode:
         response = create_member_json(return_json=True)
     else:
