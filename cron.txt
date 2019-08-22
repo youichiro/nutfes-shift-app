@@ -1,0 +1,2 @@
+0,30 * * * * cd /var/www/nutfes-shift-app; bash -l -c '/root/.pyenv/shims/python /var/www/nutfes-shift-app/manage.py create_next_push_requests'
+25,55 * * * * cd /var/www/nutfes-shift-app; bash -l -c '/root/.pyenv/shims/python /var/www/nutfes-shift-app/manage.py send_notifications'
