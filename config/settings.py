@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'apps.timetable',
     'apps.option',
     'apps.notification',
+    'apps.contact',
+    'markdownx',
 ]
 
 MIDDLEWARE = [
@@ -98,6 +100,10 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MARKDOWN_IMAGE_MAX_SIZE = {'size': (2000, 2000), 'quality': 100}
 
 
 # CustomUserモデルをAdminに設定

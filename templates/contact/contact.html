@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} 全体連絡 {% endblock %}
+
+{% block style %}
+    .body {
+        margin: 5px
+    }
+{% endblock %}
+
+{% block content %}
+    <h1>{{ contact.title }}</h1>
+    <br>
+    {{  contact.html_text }}
+{% endblock %}
