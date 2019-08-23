@@ -5,6 +5,8 @@ from tqdm import tqdm
 
 
 def post_request(data):
+    assert 'to' in data and 'body' in data and 'data' in data
+    assert 'body' in data['data']
     requests.post(
         'https://exp.host/--/api/v2/push/send',
         json.dumps(data),
