@@ -6,4 +6,5 @@ __pycache__
 config/local_settings.py
 static/xlsx/*
 static/json/*
+media/*
 !.gitkeep
