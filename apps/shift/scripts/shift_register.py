@@ -146,7 +146,7 @@ def main():
         if res == 'yes':
             Cell.objects.all().delete()
             Task.objects.all().delete()
-            print('All Cell and Task instances ware deleted.')
+            print('All Cell and Task instances were deleted.')
         else:
             return
 
