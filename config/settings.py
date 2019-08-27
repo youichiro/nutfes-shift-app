@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.notification',
     'apps.contact',
     'markdownx',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -39,6 +40,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -115,6 +117,8 @@ REST_FRAMEWORK = {
 
 LOGIN_URL = 'account:login'
 LOGIN_REDIRECT_URL = 'home'
+
+CORS_ALLOW_CREDENTIALS = True
 
 # local設定の読み込み
 try:
