@@ -118,6 +118,9 @@ REST_FRAMEWORK = {
 LOGIN_URL = 'account:login'
 LOGIN_REDIRECT_URL = 'home'
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
 CORS_ALLOW_CREDENTIALS = True
 
 # local設定の読み込み
