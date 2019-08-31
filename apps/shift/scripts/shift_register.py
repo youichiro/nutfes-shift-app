@@ -5,35 +5,56 @@ from apps.shift.models import Task, Cell, Member, Time
 
 FILES = [
     {
-        'filename': "static/xlsx/sat_shift.xlsx",
-        'member_range': 'B3:DS3',
+        'filename': "static/xlsx/shift.xlsx",
         'sheets': [
             {
+                'name': '準備日晴れ',
+                'sheet_name': '準備日晴れ',
+                'sheet_id': 1,
+                'member_range': 'C2:EN2',
+            },
+            {
+                'name': '準備日雨',
+                'sheet_name': '準備日雨',
+                'sheet_id': 2,
+                'member_range': 'C2:EN2',
+            },
+            {
                 'name': '1日目晴れ',
-                'sheet_name': '晴',
+                'sheet_name': '1日目晴れ',
                 'sheet_id': 3,
+                'member_range': 'C2:EJ2',
             },
             {
                 'name': '1日目雨',
-                'sheet_name': '雨',
+                'sheet_name': '1日目雨',
                 'sheet_id': 4,
-            }
-        ]
-    },
-    {
-        'filename': 'static/xlsx/sun_shift.xlsx',
-        'member_range': 'B3:DE3',
-        'sheets': [
+                'member_range': 'C2:EK2',
+            },
             {
                 'name': '2日目晴れ',
-                'sheet_name': '晴',
+                'sheet_name': '2日目晴れ',
                 'sheet_id': 5,
+                'member_range': 'C2:EI2',
             },
             {
                 'name': '2日目雨',
-                'sheet_name': '雨',
+                'sheet_name': '2日目雨',
                 'sheet_id': 6,
-            }
+                'member_range': 'C2:EK2',
+            },
+            {
+                'name': '片付け日晴れ',
+                'sheet_name': '片付け日晴れ',
+                'sheet_id': 7,
+                'member_range': 'C2:EV2',
+            },
+            {
+                'name': '片付け日雨',
+                'sheet_name': '片付け日雨',
+                'sheet_id': 8,
+                'member_range': 'C2:EV2',
+            },
         ]
     },
 ]
@@ -152,7 +173,6 @@ def main():
 
     for file in FILES:
         wb = openpyxl.load_workbook(file['filename'])
-        member_range = file['member_range']
         for sheet in file['sheets']:
             print(f'Saving {sheet["name"]}...')
-            register(sheet=wb[sheet['sheet_name']], sheet_id=sheet['sheet_id'], member_range=member_range)
+            register(sheet=wb[sheet['sheet_name']], sheet_id=sheet['sheet_id'], member_range=sheet['member_range'])

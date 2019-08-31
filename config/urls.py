@@ -6,6 +6,10 @@ from apps.api.urls import router
 from django.views.generic import TemplateView
 
 
+admin.site.site_title = 'nutfes-shift-app'
+admin.site.site_header = 'NUTFES SHIFT APP'
+
+
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),

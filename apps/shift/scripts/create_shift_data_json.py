@@ -127,7 +127,7 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
 
 
 def main():
-    sheet_ids = [3, 4, 5, 6]
+    sheet_ids = [1, 2, 3, 4, 5, 6]
     for sheet_id in sheet_ids:
         filename = f'static/json/shift_data_{sheet_id}.json'
         print(f'Saving shift data to {filename}...')
