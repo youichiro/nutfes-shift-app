@@ -5,7 +5,7 @@ from apps.shift.models import Task, Cell, Member, Time
 
 FILES = [
     {
-        'filename': "static/xlsx/shift.xlsx",
+        'filename': 'static/xlsx/fri_shift.xlsx',
         'sheets': [
             {
                 'name': '準備日晴れ',
@@ -19,6 +19,11 @@ FILES = [
                 'sheet_id': 2,
                 'member_range': 'C2:EN2',
             },
+        ]
+    },
+    {
+        'filename': 'static/xlsx/sat_shift.xlsx',
+        'sheets': [
             {
                 'name': '1日目晴れ',
                 'sheet_name': '1日目晴れ',
@@ -31,6 +36,11 @@ FILES = [
                 'sheet_id': 4,
                 'member_range': 'C2:EK2',
             },
+        ]
+    },
+    {
+        'filename': 'static/xlsx/sun_shift.xlsx',
+        'sheets': [
             {
                 'name': '2日目晴れ',
                 'sheet_name': '2日目晴れ',
@@ -43,6 +53,11 @@ FILES = [
                 'sheet_id': 6,
                 'member_range': 'C2:EK2',
             },
+        ]
+    },
+    {
+        'filename': 'static/xlsx/mon_shift.xlsx',
+        'sheets': [
             {
                 'name': '片付け日晴れ',
                 'sheet_name': '片付け日晴れ',
