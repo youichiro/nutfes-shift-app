@@ -4,7 +4,7 @@ from apps.timetable.models import TimeTable, Event
 
 
 FILE_PATH = 'static/xlsx/timetable.xlsx'
-FINAL_ROW_NUM = 34
+FINAL_ROW_NUM = 46
 
 SHEETS = [
     {
@@ -122,6 +122,15 @@ def register(sheet, place_range, active_range):
 
 
 def main():
+    if TimeTable.objects.first() or Event.objects.first():
+        res = input('Do you delete all TimeTable and Event instances ? [yes/no] ')
+        if res == 'yes':
+            TimeTable.objects.all().delete()
+            Event.objects.all().delete()
+            print('All TimeTable and Event instances were deleted.')
+        else:
+            return
+
     wb = openpyxl.load_workbook(FILE_PATH)
     for sheet_obj in SHEETS:
         sheet = wb[sheet_obj['sheet_name']]
