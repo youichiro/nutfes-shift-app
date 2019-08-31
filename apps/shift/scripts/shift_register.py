@@ -15,7 +15,7 @@ FILES = [
             },
         ]
     },
-{
+    {
         'filename': 'static/xlsx/fri_rain_shift.xlsx',
         'sheets': [
             {
