@@ -5,7 +5,7 @@ from apps.shift.models import Task, Cell, Member, Time
 
 FILES = [
     {
-        'filename': 'static/xlsx/fri_shift.xlsx',
+        'filename': 'static/xlsx/fri_sunny_shift.xlsx',
         'sheets': [
             {
                 'name': '準備日晴れ',
@@ -13,6 +13,11 @@ FILES = [
                 'sheet_id': 1,
                 'member_range': 'C2:EN2',
             },
+        ]
+    },
+{
+        'filename': 'static/xlsx/fri_rain_shift.xlsx',
+        'sheets': [
             {
                 'name': '準備日雨',
                 'sheet_name': '準備日雨',
@@ -22,7 +27,7 @@ FILES = [
         ]
     },
     {
-        'filename': 'static/xlsx/sat_shift.xlsx',
+        'filename': 'static/xlsx/sat_sunny_shift.xlsx',
         'sheets': [
             {
                 'name': '1日目晴れ',
@@ -30,6 +35,11 @@ FILES = [
                 'sheet_id': 3,
                 'member_range': 'C2:EJ2',
             },
+        ]
+    },
+    {
+        'filename': 'static/xlsx/sat_rain_shift.xlsx',
+        'sheets': [
             {
                 'name': '1日目雨',
                 'sheet_name': '1日目雨',
@@ -39,7 +49,7 @@ FILES = [
         ]
     },
     {
-        'filename': 'static/xlsx/sun_shift.xlsx',
+        'filename': 'static/xlsx/sun_sunny_shift.xlsx',
         'sheets': [
             {
                 'name': '2日目晴れ',
@@ -47,6 +57,11 @@ FILES = [
                 'sheet_id': 5,
                 'member_range': 'C2:EI2',
             },
+        ]
+    },
+    {
+        'filename': 'static/xlsx/sun_rain_shift.xlsx',
+        'sheets': [
             {
                 'name': '2日目雨',
                 'sheet_name': '2日目雨',
@@ -56,7 +71,7 @@ FILES = [
         ]
     },
     {
-        'filename': 'static/xlsx/mon_shift.xlsx',
+        'filename': 'static/xlsx/mon_sunny_shift.xlsx',
         'sheets': [
             {
                 'name': '片付け日晴れ',
@@ -64,6 +79,11 @@ FILES = [
                 'sheet_id': 7,
                 'member_range': 'C2:EV2',
             },
+        ]
+    },
+    {
+        'filename': 'static/xlsx/mon_rain_shift.xlsx',
+        'sheets': [
             {
                 'name': '片付け日雨',
                 'sheet_name': '片付け日雨',
