@@ -3,14 +3,14 @@ from django.conf import settings
 from apps.shift.models import Belong, Department, Grade, Member
 
 FILENAME = 'members.xlsx'
-CATEGORY_RANGE = 'B2:B153'
-SUBCATEGORY_RANGE = 'C2:C153'
-LEADER_RANGE = 'D2:D153'
-GRADE_RANGE = 'E2:E153'
-DEPARTMENT_RANGE = 'F2:F153'
-NAME_RANGE = 'G2:G153'
-EMAIL_RANGE = 'I2:I153'
-PHONE_RANGE = 'K2:K153'
+CATEGORY_RANGE = 'B2:B152'
+SUBCATEGORY_RANGE = 'C2:C152'
+LEADER_RANGE = 'D2:D152'
+GRADE_RANGE = 'E2:E152'
+DEPARTMENT_RANGE = 'F2:F152'
+NAME_RANGE = 'G2:G152'
+EMAIL_RANGE = 'I2:I152'
+PHONE_RANGE = 'K2:K152'
 
 
 def get_value_list(tuple_2d):
