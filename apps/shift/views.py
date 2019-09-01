@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from apps.shift.scripts.create_shift_data_json import create_shift_data_json, get_same_time_members
 from apps.shift.scripts.create_member_json import create_member_json
+from apps.shift.scripts.create_my_shift_data_json import create_my_shift_data_json
 from apps.shift.models import Member
 from apps.option.models import Option
 
@@ -43,6 +44,20 @@ def members_json(request):
         response = create_member_json(return_json=True)
     else:
         filename = 'static/json/members.json'
+        with open(filename) as f:
+            response = json.load(f)
+
+    response = json.dumps(response, ensure_ascii=False)
+    return JsonResponse(response, safe=False)
+
+
+def my_shift_data_json(request, member_name):
+    option = Option.objects.first()
+    api_mode = option.api_mode if option else settings.API_MODE
+    if api_mode:
+        response = create_my_shift_data_json(member_name, return_json=True)
+    else:
+        filename = f'static/json/my_shift_data/{member_name}.json'
         with open(filename) as f:
             response = json.load(f)
 

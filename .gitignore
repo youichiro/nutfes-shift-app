@@ -5,6 +5,7 @@
 __pycache__
 config/local_settings.py
 static/xlsx/*
-static/json/*
+static/json/*.json
+static/json/my_shift_data/*
 media/*
 !.gitkeep
