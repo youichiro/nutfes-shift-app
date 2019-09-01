@@ -197,12 +197,11 @@ def register(sheet, sheet_id, member_range):
 
 
 def main():
-    if Cell.objects.first() or Task.objects.first():
-        res = input('Do you delete all Cell and Task instances ? [yes/no] ')
+    if Cell.objects.first():
+        res = input('Do you delete all Cell instances ? [yes/no] ')
         if res == 'yes':
             Cell.objects.all().delete()
-            Task.objects.all().delete()
-            print('All Cell and Task instances were deleted.')
+            print('All Cell instances were deleted.')
         else:
             return
 
