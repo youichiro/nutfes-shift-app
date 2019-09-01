@@ -13,8 +13,8 @@ def contact_json(request):
             'id': contact.id,
             'title': contact.title,
             'text': contact.html_text(),
-            'created_at': contact.created_at.strftime('%-m月%-d日%H:%M'),
-            'updated_at': contact.updated_at.strftime('%-m月%-d日%H:%M')
+            'created_at': contact.created_at.astimezone(tz=None).strftime('%-m月%-d日%H:%M'),
+            'updated_at': contact.updated_at.astimezone(tz=None).strftime('%-m月%-d日%H:%M')
         })
     response = json.dumps(data, ensure_ascii=False)
     return JsonResponse(response, safe=False)

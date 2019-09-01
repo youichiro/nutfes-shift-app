@@ -123,11 +123,10 @@ def register(sheet, place_range, active_range):
 
 def main():
     if TimeTable.objects.first() or Event.objects.first():
-        res = input('Do you delete all TimeTable and Event instances ? [yes/no] ')
+        res = input('Do you delete all TimeTable instances ? [yes/no] ')
         if res == 'yes':
             TimeTable.objects.all().delete()
-            Event.objects.all().delete()
-            print('All TimeTable and Event instances were deleted.')
+            print('All TimeTable instances were deleted.')
         else:
             return
 

@@ -1,5 +1,6 @@
 import openpyxl
 from tqdm import tqdm
+from django.conf import settings
 from apps.shift.models import Task, Cell, Member, Time
 
 
@@ -144,6 +145,10 @@ def register(sheet, sheet_id, member_range):
     for merged_cell in tqdm(merged_cells):
         cell_range = merged_cell.ref
         cells = sheet[cell_range]
+
+        # 範囲外のセルは除外
+        if cells[0][0].row < settings.SHIFT_START_ROW:
+            continue
 
         # タスクの登録
         task = get_value_list(cells)[0][0]
