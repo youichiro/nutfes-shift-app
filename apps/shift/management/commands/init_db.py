@@ -48,7 +48,7 @@ def init_belong():
 def init_sheet():
     """シートの初期化"""
     for i, sheet in enumerate(settings.SHEETS):
-        Sheet.objects.create(id=i+1, name=sheet.name, day=sheet.day, weather=sheet.weather)
+        Sheet.objects.create(id=i+1, name=sheet['name'], day=sheet['day'], weather=sheet['weather'])
 
 
 def init_time():
