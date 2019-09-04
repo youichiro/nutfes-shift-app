@@ -83,7 +83,7 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
                         'members': [],
                     })
                     end_time_id += 1
-            if i != len(cells) - 1 and cell.task.name == cells[i+1].task.name:
+            if i != len(cells)-1 and cell.task.name == cells[i+1].task.name and cell.time.id+1 == cells[i+1].time.id:
                 n_cell += 1
                 continue
             else:
@@ -128,8 +128,30 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
 
 
 def main():
-    sheet_ids = [1, 2, 3, 4, 5, 6, 7, 8]
+    res = input('''Input sheet IDs (1-8) connect each with a comma (ex. 1,2).
+All sheet are registered when input 0.
+  0: 全て
+  1: 準備日晴れ
+  2: 準備日雨
+  3: 1日目晴れ
+  4: 1日目雨
+  5: 2日目晴れ
+  6: 2日目雨
+  7: 片付け日晴れ
+  8: 片付け日雨
+> ''')
+    input_ids = res.replace(' ', '').split(',')
+    sheet_ids = ['1', '2', '3', '4', '5', '6', '7', '8']
+    if len(input_ids) == 1 and input_ids[0] == '0':
+        pass
+    elif not all([input_id in sheet_ids for input_id in input_ids]):
+        print('Invalid')
+        return
+    else:
+        sheet_ids = input_ids
+
     for sheet_id in sheet_ids:
+        sheet_id = int(sheet_id)
         filename = f'static/json/shift_data_{sheet_id}.json'
         print(f'Saving shift data to {filename}...')
         create_shift_data_json(sheet_id, filename)

@@ -9,7 +9,6 @@ FILES = [
         'filename': 'static/xlsx/fri_sunny_shift.xlsx',
         'sheets': [
             {
-                'name': '準備日晴れ',
                 'sheet_name': '準備日晴れ',
                 'sheet_id': 1,
                 'member_range': 'C2:EN2',
@@ -20,7 +19,6 @@ FILES = [
         'filename': 'static/xlsx/fri_rain_shift.xlsx',
         'sheets': [
             {
-                'name': '準備日雨',
                 'sheet_name': '準備日雨',
                 'sheet_id': 2,
                 'member_range': 'C2:EN2',
@@ -31,7 +29,6 @@ FILES = [
         'filename': 'static/xlsx/sat_sunny_shift.xlsx',
         'sheets': [
             {
-                'name': '1日目晴れ',
                 'sheet_name': '1日目晴れ',
                 'sheet_id': 3,
                 'member_range': 'C2:EJ2',
@@ -42,7 +39,6 @@ FILES = [
         'filename': 'static/xlsx/sat_rain_shift.xlsx',
         'sheets': [
             {
-                'name': '1日目雨',
                 'sheet_name': '1日目雨',
                 'sheet_id': 4,
                 'member_range': 'C2:EK2',
@@ -53,7 +49,6 @@ FILES = [
         'filename': 'static/xlsx/sun_sunny_shift.xlsx',
         'sheets': [
             {
-                'name': '2日目晴れ',
                 'sheet_name': '2日目晴れ',
                 'sheet_id': 5,
                 'member_range': 'C2:EI2',
@@ -64,7 +59,6 @@ FILES = [
         'filename': 'static/xlsx/sun_rain_shift.xlsx',
         'sheets': [
             {
-                'name': '2日目雨',
                 'sheet_name': '2日目雨',
                 'sheet_id': 6,
                 'member_range': 'C2:EK2',
@@ -75,7 +69,6 @@ FILES = [
         'filename': 'static/xlsx/mon_sunny_shift.xlsx',
         'sheets': [
             {
-                'name': '片付け日晴れ',
                 'sheet_name': '片付け日晴れ',
                 'sheet_id': 7,
                 'member_range': 'C2:EV2',
@@ -86,7 +79,6 @@ FILES = [
         'filename': 'static/xlsx/mon_rain_shift.xlsx',
         'sheets': [
             {
-                'name': '片付け日雨',
                 'sheet_name': '片付け日雨',
                 'sheet_id': 8,
                 'member_range': 'C2:EV2',
@@ -202,16 +194,53 @@ def register(sheet, sheet_id, member_range):
 
 
 def main():
-    if Cell.objects.first():
-        res = input('Do you delete all Cell instances ? [yes/no] ')
-        if res == 'yes':
-            Cell.objects.all().delete()
-            print('All Cell instances were deleted.')
-        else:
-            return
+    res = input('''Input sheet IDs (1-8) connect each with a comma (ex. 1,2).
+All sheet are registered when input 0.
+  0: 全て
+  1: 準備日晴れ
+  2: 準備日雨
+  3: 1日目晴れ
+  4: 1日目雨
+  5: 2日目晴れ
+  6: 2日目雨
+  7: 片付け日晴れ
+  8: 片付け日雨
+> ''')
+    input_ids = res.replace(' ', '').split(',')
+    sheet_ids = ['1', '2', '3', '4', '5', '6', '7', '8']
+    if len(input_ids) == 1 and input_ids[0] == '0':  # input_ids: ['0']
+        if Cell.objects.first():
+            res = input('Do you delete all Cell instances ? [yes/no] ')
+            if res == 'yes':
+                Cell.objects.all().delete()
+                print('All Cell instances were deleted.')
+            else:
+                return
 
-    for file in FILES:
-        wb = openpyxl.load_workbook(file['filename'])
-        for sheet in file['sheets']:
-            print(f'Saving {sheet["name"]}...')
-            register(sheet=wb[sheet['sheet_name']], sheet_id=sheet['sheet_id'], member_range=sheet['member_range'])
+        for file in FILES:
+            wb = openpyxl.load_workbook(file['filename'])
+            for sheet in file['sheets']:
+                print(f'Saving {sheet["sheet_name"]}...')
+                register(wb[sheet['sheet_name']], sheet['sheet_id'], sheet['member_range'])
+    else:
+        if not all([input_id in sheet_ids for input_id in input_ids]):
+            print('Invalid')
+            return
+        for input_id in input_ids:  # input_ids: ['1', '2']
+            sheet_id = int(input_id)
+            for file in FILES:
+                for sheet in file['sheets']:
+                    if sheet['sheet_id'] != sheet_id:
+                        continue
+                    if Cell.objects.filter(sheet__id=sheet['sheet_id']).first():
+                        res = input(f'Do you delete Cell instances of {sheet["sheet_name"]} ? [yes/no] ')
+                        if res == 'yes':
+                            Cell.objects.filter(sheet__id=sheet['sheet_id']).delete()
+                            print(f'Cell instances of {sheet["sheet_name"]} were deleted.')
+                        else:
+                            print('skip')
+                            continue
+                    wb = openpyxl.load_workbook(file['filename'])
+                    print(f'Saving {sheet["sheet_name"]}...')
+                    register(wb[sheet['sheet_name']], sheet['sheet_id'], sheet['member_range'])
+

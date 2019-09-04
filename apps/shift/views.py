@@ -4,7 +4,7 @@ from django.conf import settings
 from apps.shift.scripts.create_shift_data_json import create_shift_data_json, get_same_time_members
 from apps.shift.scripts.create_member_json import create_member_json
 from apps.shift.scripts.create_my_shift_data_json import create_my_shift_data_json
-from apps.shift.models import Member
+from apps.shift.models import Member, Sheet
 from apps.option.models import Option
 
 
@@ -55,11 +55,17 @@ def my_shift_data_json(request, member_name):
     option = Option.objects.first()
     api_mode = option.api_mode if option else settings.API_MODE
     if api_mode:
-        response = create_my_shift_data_json(member_name, return_json=True)
+        response = []
+        for sheet in Sheet.objects.all():
+            response.append(
+                create_my_shift_data_json(sheet.name, member_name, return_json=True)
+            )
     else:
-        filename = f'static/json/my_shift_data/{member_name}.json'
-        with open(filename) as f:
-            response = json.load(f)
+        response = []
+        for sheet in Sheet.objects.all():
+            filename = f'static/json/my_shift_data/{sheet.id}/{member_name}.json'
+            with open(filename) as f:
+                response.append(json.load(f))
 
     response = json.dumps(response, ensure_ascii=False)
     return JsonResponse(response, safe=False)
