@@ -2,6 +2,22 @@
 import json
 import requests
 from tqdm import tqdm
+from apps.notification.models import DeviceToken
+
+
+def send_notification(title, body):
+    for device_token in DeviceToken.uniq_list():
+        token = device_token.token
+        data = {
+            'to': token,
+            'title': title,
+            'body': body,
+            'data': {
+                'title': title,
+                'body': body,
+            }
+        }
+        post_request(data)
 
 
 def post_request(data):

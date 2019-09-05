@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} 通知フォーム {% endblock %}
+
+{% block style %}
+    .body {
+        margin: 20px
+    }
+    .message {
+        padding: 10px;
+        border-radius: 3px 3px 3px 3px;
+        background-color: mediumseagreen;
+        color: white;
+    }
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+        <br>
+    {% endif %}
+
+    <h1>通知フォーム</h1>
+    <hr>
+    <br>
+
+    <form method="post" action="">{% csrf_token %}
+        <h2>タイトル</h2>
+        {{ form.title }}
+
+        <br>
+        <br>
+        <h2>本文</h2>
+        {{ form.body }}
+        <br/>
+        <input type="submit">
+    </form>
+
+
+{% endblock %}
