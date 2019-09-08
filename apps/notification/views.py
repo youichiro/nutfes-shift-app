@@ -36,7 +36,7 @@ def register(request):
         return HttpResponse('Bad request')
 
 
-class NotificationFormView(FormView, LoginRequiredMixin):
+class NotificationFormView(LoginRequiredMixin, FormView):
     login_url = '/admin/login/'
     template_name = 'notification/notification_form.html'
     form_class = NotificationForm
