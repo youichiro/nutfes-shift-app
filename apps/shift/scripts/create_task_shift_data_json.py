@@ -4,7 +4,7 @@ from apps.shift.models import Sheet, Member, Cell
 from apps.shift.scripts.create_shift_data_json import get_same_time_members
 
 
-def create_task_shift_data_json(sheet_id, task_name, filename='static/json/task_shift_data.json', return_json=False):
+def create_task_shift_data_json(sheet_id, task_name, filename='static/json/task_shift_data/task.json', return_json=False):
     data = []
     sheet_name = Sheet.objects.get(id=sheet_id).name
     task_cells = Cell.objects.filter(sheet__id=sheet_id, task__name=task_name)
@@ -100,3 +100,37 @@ def create_task_shift_data_json(sheet_id, task_name, filename='static/json/task_
 
     with open(filename, 'w') as f:
         json.dump(response, f, ensure_ascii=False)
+
+
+def main():
+    res = input('''Input sheet IDs (1-8) connect each with a comma (ex. 1,2).
+All sheet are registered when input 0.
+  0: 全て
+  1: 準備日晴れ
+  2: 準備日雨
+  3: 1日目晴れ
+  4: 1日目雨
+  5: 2日目晴れ
+  6: 2日目雨
+  7: 片付け日晴れ
+  8: 片付け日雨
+> ''')
+    input_ids = res.replace(' ', '').split(',')
+    sheet_ids = ['1', '2', '3', '4', '5', '6', '7', '8']
+    if len(input_ids) == 1 and input_ids[0] == '0':
+        pass
+    elif not all([input_id in sheet_ids for input_id in input_ids]):
+        print('Invalid')
+        return
+    else:
+        sheet_ids = input_ids
+
+    for sheet_id in sheet_ids:
+        sheet_id = int(sheet_id)
+        sheet_name = Sheet.objects.get(id=sheet_id).name
+        print(sheet_name)
+        tasks = Cell.objects.filter(sheet__id=sheet_id).values_list('task__name', flat=True)
+        for task_name in tqdm(tasks):
+            filename = f'static/json/task_shift_data/{sheet_id}/{task_name}.json'
+            create_task_shift_data_json(sheet_id, task_name, filename)
+    print('Saved task shift data to static/json/task_json_data directory')

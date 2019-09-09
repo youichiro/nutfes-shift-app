@@ -5,7 +5,7 @@ from apps.shift.scripts.create_shift_data_json import create_shift_data_json, ge
 from apps.shift.scripts.create_member_json import create_member_json
 from apps.shift.scripts.create_my_shift_data_json import create_my_shift_data_json
 from apps.shift.scripts.create_task_shift_data_json import create_task_shift_data_json
-from apps.shift.models import Member, Sheet, Task
+from apps.shift.models import Member, Sheet
 from apps.option.models import Option
 
 
@@ -73,6 +73,7 @@ def my_shift_data_json(request, member_name):
 
 
 def task_shift_data_json(request, sheet_id, task_name):
+    # JSON作成に時間がかかるのでJSONモードは使用しない
     response = create_task_shift_data_json(sheet_id, task_name, return_json=True)
     response = json.dumps(response, ensure_ascii=False)
     return JsonResponse(response, safe=False)
