@@ -105,7 +105,7 @@ def column_num_to_alpha(num):
 
 def save_and_get_task(name):
     """Taskを登録してインスタンスを返す"""
-    if not name:
+    if not name or name[0] == '=':
         return None
     name = name[:100]
     name = name.replace('\n', ' ')
