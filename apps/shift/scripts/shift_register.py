@@ -226,20 +226,23 @@ All sheet are registered when input 0.
         if not all([input_id in sheet_ids for input_id in input_ids]):
             print('Invalid')
             return
-        for input_id in input_ids:  # input_ids: ['1', '2']
-            sheet_id = int(input_id)
+
+        sheet_ids = [int(input_id) for input_id in input_ids]
+        cells = Cell.objects.filter(sheet__id__in=sheet_ids)
+        if cells.first():
+            res = input(f'Do you delete Cell instances of sheet_id: {sheet_ids} ? [yes/no] ')
+            if res == 'yes':
+                cells.delete()
+                print(f'Cell instances of sheet_id: {sheet_ids} were deleted.')
+            else:
+                print('skip')
+                return
+
+        for sheet_id in sheet_ids:
             for file in FILES:
                 for sheet in file['sheets']:
                     if sheet['sheet_id'] != sheet_id:
                         continue
-                    if Cell.objects.filter(sheet__id=sheet['sheet_id']).first():
-                        res = input(f'Do you delete Cell instances of {sheet["sheet_name"]} ? [yes/no] ')
-                        if res == 'yes':
-                            Cell.objects.filter(sheet__id=sheet['sheet_id']).delete()
-                            print(f'Cell instances of {sheet["sheet_name"]} were deleted.')
-                        else:
-                            print('skip')
-                            continue
                     wb = openpyxl.load_workbook(file['filename'])
                     print(f'Saving {sheet["sheet_name"]}...')
                     register(wb[sheet['sheet_name']], sheet['sheet_id'], sheet['member_range'])
