@@ -11,7 +11,7 @@ FILES = [
             {
                 'sheet_name': '準備日晴れ',
                 'sheet_id': 1,
-                'member_range': 'C2:EN2',
+                'member_range': 'C2:EB2',
             },
         ]
     },
@@ -21,7 +21,7 @@ FILES = [
             {
                 'sheet_name': '準備日雨',
                 'sheet_id': 2,
-                'member_range': 'C2:EN2',
+                'member_range': 'C2:EB2',
             },
         ]
     },
@@ -31,7 +31,7 @@ FILES = [
             {
                 'sheet_name': '1日目晴れ',
                 'sheet_id': 3,
-                'member_range': 'C2:EJ2',
+                'member_range': 'C2:EB2',
             },
         ]
     },
@@ -41,7 +41,7 @@ FILES = [
             {
                 'sheet_name': '1日目雨',
                 'sheet_id': 4,
-                'member_range': 'C2:EK2',
+                'member_range': 'C2:EB2',
             },
         ]
     },
@@ -51,7 +51,7 @@ FILES = [
             {
                 'sheet_name': '2日目晴れ',
                 'sheet_id': 5,
-                'member_range': 'C2:EI2',
+                'member_range': 'C2:EA2',
             },
         ]
     },
@@ -61,7 +61,7 @@ FILES = [
             {
                 'sheet_name': '2日目雨',
                 'sheet_id': 6,
-                'member_range': 'C2:EK2',
+                'member_range': 'C2:EA2',
             },
         ]
     },
