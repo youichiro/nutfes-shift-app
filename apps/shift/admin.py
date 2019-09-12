@@ -36,7 +36,7 @@ class TimeAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('name', 'place', 'color', 'description')
+    list_display = ('name', 'place', 'color', 'description', 'manual_url')
     ordering = ('id',)
     list_editable = ('color',)
     search_fields = ('name',)
