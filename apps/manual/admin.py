@@ -3,7 +3,7 @@ from .models import Manual
 
 
 class ManualAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'category', 'url', 'order')
+    list_display = ('id', 'category', 'title', 'url', 'order')
     ordering = ('id',)
     list_editable = ('url', 'order')
 
