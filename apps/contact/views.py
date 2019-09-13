@@ -8,7 +8,7 @@ from apps.contact.models import Contact
 
 
 def contact_json(request):
-    contacts = Contact.objects.all().order_by('-created_at')
+    contacts = Contact.objects.all().order_by('created_at')
     data = []
     for contact in contacts:
         data.append({
