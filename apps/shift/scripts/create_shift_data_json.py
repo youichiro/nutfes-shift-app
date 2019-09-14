@@ -43,27 +43,6 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
         end_time_id = 1
         cells = Cell.objects.filter(sheet__name=sheet_name, member__name=name).order_by('time__id')
         if not cells:
-            # data.append({
-            #     'name': name,
-            #     'belong': {
-            #         'category_name': member.belong.category_name,
-            #         'subcategory_name': member.belong.subcategory_name,
-            #         'short_name': member.belong.short_name,
-            #         'color': member.belong.color,
-            #     },
-            #     'tasks': [{
-            #         'name': '',
-            #         'description': '',
-            #         'n_cell': 1,
-            #         'place': '',
-            #         'color': '',
-            #         'manual_url': '',
-            #         'time': '',
-            #         'start_time_id': 1,
-            #         'end_time_id': 1,
-            #         'members': [],
-            #     }]
-            # })
             continue
         if start_time_id != cells[0].time.id:
             while start_time_id != cells[0].time.id:
@@ -110,10 +89,11 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
             else:
                 end_time = cell.time.end_time
                 end_time_id = cell.time.id
-                if return_json:
-                    members = []
-                else:
-                    members = get_same_time_members(sheet_name, cell.task.name, start_time_id, end_time_id)
+                members = []
+                # if return_json:
+                #     members = []
+                # else:
+                #     members = get_same_time_members(sheet_name, cell.task.name, start_time_id, end_time_id)
 
                 tasks.append({
                     'name': cell.task.name,
