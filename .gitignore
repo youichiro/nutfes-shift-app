@@ -10,3 +10,4 @@ static/json/my_shift_data/[1-8]/*
 static/json/task_shift_data/[1-8]/*
 media/*
 !.gitkeep
+!*_example.xlsx
