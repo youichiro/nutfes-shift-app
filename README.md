@@ -3,7 +3,7 @@
 
 ![image1](https://github.com/youichiro/nutfes-shift-app/blob/master/static/image/readme_image1.png)
 
-
+<br>
 このレポジトリはシフトデータを管理画面で編集しAPIを提供するためのDjangoアプリケーションです．
 
 ![image2](https://github.com/youichiro/nutfes-shift-app/blob/master/static/image/readme_image2.png)
