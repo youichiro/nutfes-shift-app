@@ -1,6 +1,6 @@
 from django.db import models
-from markdownx.models import MarkdownxField
 from django.utils.safestring import mark_safe
+from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 
 
@@ -20,4 +20,5 @@ class Contact(models.Model):
         return self.title
 
     def html_text(self):
+        # markdownをhtmlに変換する
         return mark_safe(markdownify(self.text))

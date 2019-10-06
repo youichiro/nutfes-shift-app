@@ -18,6 +18,7 @@ class DeviceToken(models.Model):
 
     @staticmethod
     def uniq_list():
+        """トークンの重複を除去したリストを返す"""
         uniq_list = []
         uniq_tokens = []
         for device_token in DeviceToken.objects.order_by('-updated_at'):

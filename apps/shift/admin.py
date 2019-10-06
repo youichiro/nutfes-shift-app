@@ -5,7 +5,7 @@ from .models import Belong, Department, Grade, Member, Sheet, Time, Task, Cell
 class BelongAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'short_name', 'color', 'order')
     ordering = ('id',)
-    list_editable = ('color',)  # 一覧ページで編集できる
+    list_editable = ('color',)
 
 
 class DepartmentAdmin(admin.ModelAdmin):

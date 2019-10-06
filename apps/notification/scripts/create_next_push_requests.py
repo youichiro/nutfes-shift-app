@@ -7,6 +7,7 @@ from apps.option.models import Option
 
 
 def create_next_push_requests(sheet_id, filename):
+    """各人の次のシフトを取得してJSONファイルに保存する"""
     requests = []
     current_time = Time.get_current_time()
     for device_token in DeviceToken.uniq_list():
@@ -36,6 +37,7 @@ def create_next_push_requests(sheet_id, filename):
 
 
 def get_sheet_id():
+    """今日の日付に対応するシートIDを取得すr"""
     today = datetime.datetime.today()
     month = today.month
     day = today.day

@@ -13,6 +13,7 @@ from apps.notification.forms import NotificationForm
 
 @csrf_exempt
 def register(request):
+    """POSTされたデバイストークンを受け取って保存する"""
     if request.method == 'POST':
         body = request.body
         if type(body) is bytes:

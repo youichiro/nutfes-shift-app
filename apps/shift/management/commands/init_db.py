@@ -7,7 +7,7 @@ from apps.option.models import Option
 
 
 class Command(BaseCommand):
-    help = 'Init database with defined seed data'
+    help = '初期データを登録するコマンド'
     # TODO: add_argumentsで初期化したいモデルを指定できるようにする
 
     def handle(self, *args, **options):
@@ -52,10 +52,16 @@ def init_sheet():
 
 
 def init_time():
-    """時間帯の初期化"""
+    """開始時間と時間間隔から時間帯(Time)を作成する"""
+    # settings.SHIFT_START_TIME: 開始時間 (ex. '06:00:00')
+    # settings.SHIFT_START_ROW: 開始時間のスプレッドシートの行番号 (ex. 3)
+    # settings.SHIFT_INTERVAL: 時間帯の間隔 (ex. 30)
+    # settings.SHIFT_END_TIME: 終了時間 (ex. '23:00:00')
+
     start_time = '2020-01-01 ' + settings.SHIFT_START_TIME  # 日付はダミー
-    start_time = timezone.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')  # str -> datetime に変換
+    start_time = timezone.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')  # strをdatetimeに変換
     row = settings.SHIFT_START_ROW
+
     # 開始時間の保存
     Time.objects.create(
         id=1,
@@ -63,11 +69,13 @@ def init_time():
         end_time=start_time+timezone.timedelta(minutes=settings.SHIFT_INTERVAL),
         row_number=row
     )
+
     end_time = '2020-01-01 ' + settings.SHIFT_END_TIME  # 日付はダミー
-    end_time = timezone.datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S')  # str -> datetime に変換
+    end_time = timezone.datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S')  # strをdatetimeに変換
+
+    # start_timeからend_timeまで時間間隔を加算しながら保存していく
     time = start_time
     while time < end_time:
-        # 時間間隔を加算しながら保存
         time = time + timezone.timedelta(minutes=settings.SHIFT_INTERVAL)
         row += 1
         Time.objects.create(
@@ -79,6 +87,4 @@ def init_time():
 
 def init_option():
     """共通オプションの生成"""
-    Option.objects.create(id=1,
-                          weather='晴',
-                          api_mode=True)
+    Option.objects.create(id=1, weather='晴', api_mode=True)

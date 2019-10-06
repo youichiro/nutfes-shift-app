@@ -6,6 +6,7 @@ from apps.option.models import Option
 
 
 def timetable_json(request):
+    """TimeTableデータをJSONで返す"""
     option = Option.objects.first()
     api_mode = option.api_mode if option else settings.API_MODE
     if api_mode:

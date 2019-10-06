@@ -29,9 +29,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField('名前', max_length=100)
     email = models.EmailField('メールアドレス', unique=True)
 
-    is_staff = models.BooleanField('スタッフ権限', default=False, help_text='管理画面にアクセスすることができる.')
-    is_active = models.BooleanField('有効なユーザ', default=True, help_text='有効なユーザである.')
-    is_superuser = models.BooleanField('スーパーユーザ権限', default=False, help_text='全ての権限を持っている.')
+    is_staff = models.BooleanField('Staff', default=False, help_text='管理画面にアクセスできるかどうか')
+    is_active = models.BooleanField('Active', default=True, help_text='有効なユーザかどうか')
+    is_superuser = models.BooleanField('SuperUser', default=False, help_text='全ての権限を持っているかどうか')
 
     objects = UserManager()
 

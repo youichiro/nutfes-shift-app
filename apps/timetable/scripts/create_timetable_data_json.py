@@ -3,6 +3,7 @@ from apps.timetable.models import TimeTable
 
 
 def create_timetable_json(filename='static/json/timetable.json', return_json=False):
+    """TimeTableデータを辞書orJSONで返す"""
     sheet_names = TimeTable.objects.values_list('sheet_name', flat=True)
     sheet_names = list(dict.fromkeys(sheet_names))
     response = []

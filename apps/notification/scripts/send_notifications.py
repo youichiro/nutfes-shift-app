@@ -6,6 +6,7 @@ from apps.notification.models import DeviceToken
 
 
 def send_notification(title, body):
+    """タイトルと本文を通知する"""
     for device_token in DeviceToken.uniq_list():
         token = device_token.token
         data = {
@@ -21,6 +22,7 @@ def send_notification(title, body):
 
 
 def post_request(data):
+    """通知するためのAPIを叩く"""
     assert 'to' in data and 'body' in data and 'data' in data
     assert 'body' in data['data']
     requests.post(

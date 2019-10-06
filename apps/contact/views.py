@@ -3,11 +3,11 @@ import json
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-
 from apps.contact.models import Contact
 
 
 def contact_json(request):
+    """APIで返すJSONを作成する"""
     contacts = Contact.objects.all()
     data = []
     for contact in contacts:

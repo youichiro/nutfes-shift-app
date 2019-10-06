@@ -31,7 +31,7 @@ def get_same_time_members(sheet_name, task_name, start_time_id, end_time_id):
 
 
 def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', return_json=False):
-    """シフト表示用JSONを作成. return_jsonがFalseのときJSONファイルを保存し，TrueのときJSONオブジェクトを返す."""
+    """シートIDからそのシートのシフトデータを辞書orJSONで返す"""
     sheet_name = Sheet.objects.get(id=sheet_id).name
     assert sheet_name in Sheet.objects.values_list('name', flat=True)
 
@@ -44,9 +44,9 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
         cells = Cell.objects.filter(sheet__name=sheet_name, member__name=name).order_by('time__id')
         if not cells:
             continue
+        # 最初のタスクまでの空セルを追加する
         if start_time_id != cells[0].time.id:
             while start_time_id != cells[0].time.id:
-                # 最初の空白セルを追加する
                 tasks.append({
                     'name': '',
                     'description': '',
@@ -68,6 +68,7 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
             if n_cell == 1:
                 start_time = cell.time.start_time
                 start_time_id = cell.time.id
+            # 次のタスクまで空セルを追加する
             if start_time_id > end_time_id + 1:
                 while start_time_id != end_time_id + 1:
                     tasks.append({
@@ -83,18 +84,22 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
                         'members': [],
                     })
                     end_time_id += 1
+            # 今のタスク名と次のタスク名が同一ならセルを伸ばす
             if i != len(cells)-1 and cell.task.name == cells[i+1].task.name and cell.time.id+1 == cells[i+1].time.id:
                 n_cell += 1
                 continue
             else:
                 end_time = cell.time.end_time
                 end_time_id = cell.time.id
+                # 同じ時間帯のメンバーを取得
+                # members = []の時はネイティブ側でAPIを叩くようにしている
                 members = []
                 # if return_json:
                 #     members = []
                 # else:
                 #     members = get_same_time_members(sheet_name, cell.task.name, start_time_id, end_time_id)
 
+                # セルを追加
                 tasks.append({
                     'name': cell.task.name,
                     'description': cell.task.description,
@@ -129,6 +134,7 @@ def create_shift_data_json(sheet_id, filename='static/json/shift_data.json', ret
 
 
 def main():
+    """シートIDを入力させてからシフトデータを作成する"""
     res = input('''Input sheet IDs (1-8) connect each with a comma (ex. 1,2).
 All sheet are registered when input 0.
   0: 全て

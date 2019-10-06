@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Event(models.Model):
-    """イベントモデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('イベント名', null=True, blank=True, max_length=100)
     color = models.CharField('カラー', default='white', max_length=100)
@@ -17,7 +16,6 @@ class Event(models.Model):
 
 
 class TimeTable(models.Model):
-    """タイムテーブルモデル"""
     id = models.AutoField(primary_key=True)
     sheet_name = models.CharField('シート名', max_length=30)
     place = models.CharField('場所', max_length=30)

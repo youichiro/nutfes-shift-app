@@ -3,9 +3,9 @@ import datetime
 from apps.timetable.models import TimeTable, Event
 
 
+# タイムテーブルexcelファイルの情報を定義する
 FILE_PATH = 'static/xlsx/timetable.xlsx'
 FINAL_ROW_NUM = 46
-
 SHEETS = [
     {
         'sheet_name': '一日目晴れ',
@@ -31,11 +31,12 @@ SHEETS = [
 
 
 def get_value_list(tuple_2d):
+    """セルオブジェクトの2次元配列をセルの値の2次元配列に変換する"""
     return [[cell.value for cell in row] for row in tuple_2d]
 
 
 def column_num_to_alpha(num):
-    """列番号をアルファベットに変換(100 -> CV)"""
+    """列番号をアルファベットに変換する(ex. 100 -> CV)"""
     i = int((num-1)/26)
     j = int(num-(i*26))
     alpha = ''
@@ -65,6 +66,7 @@ def save_cell(sheet_name, place, start_time, end_time, event):
 
 
 def register(sheet, place_range, active_range):
+    """タイムテーブルの情報を取得してデータベースに保存する"""
     # 列と場所の対応辞書を作成
     column2place = {}
     place_cells = sheet[place_range][0]

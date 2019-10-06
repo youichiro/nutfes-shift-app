@@ -5,6 +5,7 @@ from apps.shift.scripts.create_shift_data_json import get_same_time_members
 
 
 def create_task_shift_data_json(sheet_id, task_name, filename='static/json/task_shift_data/task.json', return_json=False):
+    """sheet_idとtask_nameからそのタスクに関わるメンバーのみのシフトデータを作成する"""
     data = []
     sheet_name = Sheet.objects.get(id=sheet_id).name
     task_cells = Cell.objects.filter(sheet__id=sheet_id, task__name=task_name)

@@ -4,7 +4,6 @@ from django.conf import settings
 
 
 class Belong(models.Model):
-    """部署モデル"""
     id = models.AutoField(primary_key=True)
     category_name = models.CharField('局', max_length=30)
     subcategory_name = models.CharField('部門', null=True, blank=True, max_length=30)
@@ -22,7 +21,6 @@ class Belong(models.Model):
 
 
 class Department(models.Model):
-    """学科モデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('学科', max_length=30)
 
@@ -36,7 +34,6 @@ class Department(models.Model):
 
 
 class Grade(models.Model):
-    """学年モデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('学年', max_length=30)
     order = models.IntegerField('優先順位', null=True, blank=True)
@@ -51,7 +48,6 @@ class Grade(models.Model):
 
 
 class Member(models.Model):
-    """局員モデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('名前', max_length=100, unique=True)
     belong = models.ForeignKey(Belong, on_delete=models.PROTECT)
@@ -72,7 +68,6 @@ class Member(models.Model):
 
 
 class Sheet(models.Model):
-    """シートモデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('シート名', max_length=30)
     day = models.IntegerField('日にち')
@@ -88,7 +83,6 @@ class Sheet(models.Model):
 
 
 class Time(models.Model):
-    """時間帯モデル"""
     id = models.AutoField(primary_key=True)
     start_time = models.TimeField('開始時刻', unique=True)
     end_time = models.TimeField('終了時刻', unique=True)
@@ -105,17 +99,19 @@ class Time(models.Model):
             self.end_time.strftime('%H:%M')
         )
 
-
     @staticmethod
     def first_row_number():
+        """開始時間を返す"""
         return min(Time.objects.values_list('row_number', flat=True))
 
     @staticmethod
     def last_row_number():
+        """終了時間を返す"""
         return max(Time.objects.values_list('row_number', flat=True))
 
     @staticmethod
     def get_current_time():
+        """Timeモデルから現在時刻に対応するオブジェクトを取得する"""
         now = datetime.datetime.now()
         hour = now.hour
         minute = 0 if now.minute < 30 else 30
@@ -124,7 +120,6 @@ class Time(models.Model):
 
 
 class Task(models.Model):
-    """タスクモデル"""
     id = models.AutoField(primary_key=True)
     name = models.CharField('タスク名', max_length=100, unique=True)
     description = models.TextField('タスクの説明', null=True, blank=True)
@@ -142,7 +137,6 @@ class Task(models.Model):
 
 
 class Cell(models.Model):
-    """セルモデル"""
     id = models.AutoField(primary_key=True)
     sheet = models.ForeignKey(Sheet, on_delete=models.PROTECT)
     member = models.ForeignKey(Member, on_delete=models.PROTECT)

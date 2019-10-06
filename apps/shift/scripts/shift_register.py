@@ -4,6 +4,7 @@ from django.conf import settings
 from apps.shift.models import Task, Cell, Member, Time
 
 
+# シフトexcelファイルの情報を定義
 FILES = [
     {
         'filename': 'static/xlsx/fri_sunny_shift.xlsx',
@@ -89,11 +90,12 @@ FILES = [
 
 
 def get_value_list(tuple_2d):
+    """セルオブジェクトの2次元配列をセルの値の2次元配列に変換する"""
     return [[cell.value for cell in row] for row in tuple_2d]
 
 
 def column_num_to_alpha(num):
-    """列番号をアルファベットに変換(100 -> CV)"""
+    """列番号をアルファベットに変換する(ex. 100 -> CV)"""
     i = int((num-1)/26)
     j = int(num-(i*26))
     alpha = ''
@@ -123,7 +125,8 @@ def save_cell(sheet_id, member, time, task):
 
 
 def register(sheet, sheet_id, member_range):
-    # 列と局員名の対応辞書を作成
+    """シートからシフトの情報を取得してデータベースに保存する"""
+    # 列と局員名の対応辞書を作成する
     column2name = {}
     name_cells = sheet[member_range][0]
     for cell in name_cells:
@@ -132,17 +135,17 @@ def register(sheet, sheet_id, member_range):
         column = cell.col_idx
         column2name[column] = name
 
-    # 結合セルのシフト登録
+    # 結合セルを先に保存する
     merged_cells = sheet.merged_cells.ranges
     for merged_cell in tqdm(merged_cells):
         cell_range = merged_cell.ref
         cells = sheet[cell_range]
 
-        # 範囲外のセルは除外
+        # 範囲外のセルは除外する
         if cells[0][0].row < settings.SHIFT_START_ROW:
             continue
 
-        # タスクの登録
+        # タスクを登録する
         task = get_value_list(cells)[0][0]
         task = save_and_get_task(task)
         if not task:
@@ -167,7 +170,7 @@ def register(sheet, sheet_id, member_range):
                 time = Time.objects.get(row_number=row)
                 save_cell(sheet_id, member, time, task)
 
-    # 結合セル以外のシフト登録
+    # 結合セル以外を保存する
     all_range = "{}{}:{}{}".format(column_num_to_alpha(min(column2name.keys())),
                                    Time.first_row_number(),
                                    column_num_to_alpha(max(column2name.keys())),
@@ -180,7 +183,7 @@ def register(sheet, sheet_id, member_range):
             name = column2name[col]
             task = cell.value
 
-            # タスクの登録
+            # タスクを登録する
             task = save_and_get_task(task)
             if not task:
                 continue

@@ -3,6 +3,7 @@ from apps.shift.models import Member
 
 
 def create_member_json(filename='static/json/members.json', return_json=False):
+    """Memberの全データをソートして辞書orJSONで返す"""
     data = []
     for member in Member.objects.all().order_by('belong__id', '-is_leader', '-is_subleader', 'grade__id'):
         data.append({

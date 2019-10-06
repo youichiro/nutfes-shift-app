@@ -4,7 +4,7 @@ from apps.notification.scripts.create_next_push_requests import main
 
 
 class Command(BaseCommand):
-    help = '次のタスクを通知するPOSTデータを作成するコマンド'
+    help = '次のタスクのPOSTデータをJSONファイルで作成するコマンド'
 
     def handle(self, *args, **options):
         main()

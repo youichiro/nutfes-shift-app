@@ -2,6 +2,7 @@ import openpyxl
 from django.conf import settings
 from apps.shift.models import Belong, Department, Grade, Member
 
+# 技大祭名簿excelファイルの情報を定義する
 FILENAME = 'members.xlsx'
 CATEGORY_RANGE = 'B2:B152'
 SUBCATEGORY_RANGE = 'C2:C152'
@@ -14,13 +15,16 @@ PHONE_RANGE = 'K2:K152'
 
 
 def get_value_list(tuple_2d):
+    """セルオブジェクトの2次元配列からセルの値の2次元配列に変換する"""
     return [[cell.value for cell in row] for row in tuple_2d]
 
 
 def main():
+    """技大祭名簿excelを読み取ってデータベースに保存する"""
     member_file = settings.BASE_DIR + '/static/xlsx/' + FILENAME
     member_wb = openpyxl.load_workbook(member_file)
     member_sheet = member_wb.active
+
     # 局を取得
     category_values = member_sheet[CATEGORY_RANGE]
     category_values = get_value_list(category_values)

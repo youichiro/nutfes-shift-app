@@ -3,7 +3,7 @@ import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# apps以下にappを配置する
+# apps以下にappを配置するための設定
 sys.path.append(os.path.join(BASE_DIR, "apps"))
 
 SECRET_KEY = 't!r7fj7j6+3r)-nk^ddefi(q72ou-o=(4gfqb%6wp=l=yxuva6'
@@ -64,6 +64,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# local_settings.pyにデータベースの情報を書く
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
