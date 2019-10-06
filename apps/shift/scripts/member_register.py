@@ -59,6 +59,8 @@ def main():
     for category, subcategory, is_leader, grade, department, name, email, phone \
             in zip(category_values, subcategory_values, is_leader_values, grade_values,
                    department_values, name_values, email_values, phone_values):
+        if not name[0]:
+            continue
         name = name[0].replace(' ', '').replace('　', '')  # 名前の空白を削除
         email = email[0]
         phone_number = str(phone[0]) if phone[0] else None

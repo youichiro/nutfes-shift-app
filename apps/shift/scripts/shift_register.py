@@ -131,6 +131,8 @@ def register(sheet, sheet_id, member_range):
     name_cells = sheet[member_range][0]
     for cell in name_cells:
         name = cell.value
+        if not name:
+            continue
         name = name.replace(' ', '').replace('　', '')
         column = cell.col_idx
         column2name[column] = name
