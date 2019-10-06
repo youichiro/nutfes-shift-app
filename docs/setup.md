@@ -32,17 +32,18 @@ python manage.py createsuperuser
 # config/constants.pyの初期値を確認する
 python manage.py init_db
 
-# 名簿スプレッドシートをexcel形式でダウンロードし，static/xlsx/members.xlsxに保存
+# 名簿スプレッドシートをexcel形式でダウンロードし，static/xlsx/members.xlsxに保存する
 # apps/shift/scripts/member_register.pyの設定を確認する
 python manage.py member_registration
 
-# シフトスプレッドシートをexcel形式でダウンロードし，static/xlsx/shift.xlsxに保存
+# シフトスプレッドシートをexcel形式でダウンロードし，static/xlsx/shift.xlsxに保存する
 # split_xlsx.pyでシート別のexcelファイルを作成する
 python split_xlsx.py -f static/xlsx/shift.xlsx -o static/xlsx
  
 # apps/shift/scripts/shift_register.pyの設定を確認する
 python manage.py shift_registration
 
+# タイムテーブルスプレッドシートをexcel形式でダウンロードし，static/xlsx/timetable.xlsxに保存する
 # apps/timetable/scripts/timetable_register.pyの設定を確認する 
 python manage.py timetable_registration
 
