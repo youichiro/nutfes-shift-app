@@ -1,6 +1,6 @@
 ## Setup
 
-データベースの作成
+MySQLのデータベースを作成
 
 ```bash
 mysql -u root -p
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 ```bash
 cp config/local_settings_example.py config/local_settings.py
-# config/local_settings.pyにデータベースの設定を穴埋めする
+# config/local_settings.pyにMySQLの設定を穴埋めする
 ```
 
 マイグレート&データの登録
@@ -29,10 +29,23 @@ python manage.py migrate
 python manage.py collectstatic
 python manage.py createsuperuser
 
+# config/constants.pyの初期値を確認する
 python manage.py init_db
+
+# 名簿スプレッドシートをexcel形式でダウンロードし，static/xlsx/members.xlsxに保存
+# apps/shift/scripts/member_register.pyの設定を確認する
 python manage.py member_registration
+
+# シフトスプレッドシートをexcel形式でダウンロードし，static/xlsx/shift.xlsxに保存
+# split_xlsx.pyでシート別のexcelファイルを作成する
+python split_xlsx.py -f static/xlsx/shift.xlsx -o static/xlsx
+ 
+# apps/shift/scripts/shift_register.pyの設定を確認する
 python manage.py shift_registration
+
+# apps/timetable/scripts/timetable_register.pyの設定を確認する 
 python manage.py timetable_registration
+
 python manage.py loaddata fixtures/01_manual.yaml
 python manage.py create_member_json
 python manage.py create_shift_data_json
